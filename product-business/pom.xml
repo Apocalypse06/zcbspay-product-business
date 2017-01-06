@@ -269,5 +269,10 @@
     <module>product-business-coop-api</module>
     <module>product-business-trade-api</module>
     <module>product-business-order-api</module>
+    <module>product-business-coop</module>
+    <module>product-business-individual</module>
+    <module>product-business-merch</module>
+    <module>product-business-order</module>
+    <module>product-business-trade</module>
   </modules>
 </project>
