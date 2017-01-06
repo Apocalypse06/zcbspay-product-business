@@ -267,5 +267,6 @@
 		<module>product-business-individual-api</module>
 		<module>product-business-merch-api</module>
     <module>product-business-coop-api</module>
+    <module>product-business-trade-api</module>
   </modules>
 </project>
