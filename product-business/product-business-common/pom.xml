@@ -140,10 +140,10 @@
 		<!-- 强制排除 log4j 的依赖,全部 delegate 到 log4j-over-slf4j 上 -->
 		<!-- slf logback 配置结束 -->
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.zlebank.zplatform</groupId>
 			<artifactId>zplatform-payment-api</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 </project>
