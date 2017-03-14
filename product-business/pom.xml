@@ -274,5 +274,6 @@
     <module>product-business-merch</module>
     <module>product-business-order</module>
     <module>product-business-trade</module>
-  </modules>
+    <module>product-business-service</module>
+	</modules>
 </project>
