@@ -5,7 +5,7 @@ import com.zcbspay.platform.business.concentrate.bean.ResultBean;
 public interface RealtimeTradeQuery {
 
 	/****
-	 * 根据tn查询订单
+	 * 根据tn查询实时交易
 	 * @param tn
 	 * @return
 	 */

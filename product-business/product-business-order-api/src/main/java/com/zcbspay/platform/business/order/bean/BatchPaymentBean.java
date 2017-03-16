@@ -1,4 +1,4 @@
-package com.zcbspay.platform.business.concentrate.bean;
+package com.zcbspay.platform.business.order.bean;
 
 import java.io.Serializable;
 import java.util.List;

@@ -1,6 +1,7 @@
 package com.zcbspay.platform.business.concentrate.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class BatchCollectionBean implements Serializable {
 
@@ -20,11 +21,13 @@ public class BatchCollectionBean implements Serializable {
 	private String txnTime;// 订单发送时间
 	private String totalQty;// 总笔数
 	private String totalAmt;// 总金额
-	private String fileContent;// 文件内容
+	//private String fileContent;// 文件内容
 	private String reserved;// 保留域
 	private String respCode;// 响应码
 	private String respMsg;// 应答信息
 
+	/*文件内容*/
+	private List<FileContentBean> fileContent;
 	public String getVersion() {
 		return version;
 	}
@@ -113,11 +116,11 @@ public class BatchCollectionBean implements Serializable {
 		this.totalAmt = totalAmt;
 	}
 
-	public String getFileContent() {
+	public List<FileContentBean> getFileContent() {
 		return fileContent;
 	}
 
-	public void setFileContent(String fileContent) {
+	public void setFileContent(List<FileContentBean> fileContent) {
 		this.fileContent = fileContent;
 	}
 

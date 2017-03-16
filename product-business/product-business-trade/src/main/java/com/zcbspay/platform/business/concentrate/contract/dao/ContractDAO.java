@@ -11,4 +11,5 @@ public interface ContractDAO extends BaseDAO<PojoContract>{
 	 * @return
 	 */
 	public ContractBean queryContractByNum(String debtorConsign);
+	
 }

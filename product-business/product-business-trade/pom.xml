@@ -31,5 +31,15 @@
 			<artifactId>product-business-trade-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.zcbspay.platform</groupId>
+			<artifactId>payment-trade-api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.paytong.platform.business</groupId>
+			<artifactId>product-business-order-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>

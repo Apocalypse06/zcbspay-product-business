@@ -8,14 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "t_contract")
-public class PojoContract implements Serializable{
+@Table(name = "T_CONTRACT")
+public class PojoContract implements Serializable {
 
 	/**
 	 * 序列化ID
 	 */
 	private static final long serialVersionUID = 8756020018422415370L;
-	
+
 	// 标识
 	private Long TID;
 	// 合同编号
@@ -38,36 +38,55 @@ public class PojoContract implements Serializable{
 	private String contractType;
 	// 单笔金额上限(分)-付款
 	private Long debtorAmountLimit;
+	// 付款累计金额限制类型00 不限 01 按年限次 02 按月限次03 总计限次
+	private String debtorTransAmtLimitType;
 	// 累计金额上限(分)-付款
 	private Long debtorAccuAmountLimit;
 	// 付款次数限制类型00 不限 01 按年限次 02 按月限次03 总计限次
-	private String debtorTransLimitType;
+	private String debtorTransNumLimitType;
 	// 付款次数限制
 	private Long debtorTransLimit;
 	// 单笔金额上限(分) -收款
 	private Long creditorAmountLimit;
+	// 收款累计金额限制类型00 不限 01 按年限次 02 按月限次03 总计限次
+	private String creditorTransAmtLimitType;
 	// 累计金额上限(分) -收款
 	private Long creditorAccuAmountLimit;
 	// 收款次数限制类型00 不限 01 按年限次 02 按月限次03 总计限次
-	private String creditorTransLimitType;
+	private String creditorTransNumLimitType;
 	// 付款次数限制
 	private Long creditorTransLimit;
 	// 签约日期
 	private String signDate;
 	// 失效日期
 	private String expiryDate;
-	// 记录写入时间
-	private Date inTime;
 	// 00 有效 10 待审 19审核未果 89过期失效99撤销
 	private String status;
+	// 写入人
+	private Long inuser;
+	// 写入时间
+	private Date inTime;
+	// 初审人
+	private Long stexaUser;
+	// 初审时间
+	private Date stexaTime;
+	// 初审意见
+	private String stexaOpt;
+	// 复核人
+	private Long cvlexaUser;
+	// 复核时间
+	private Date cvlexaTime;
+	// 复核意见
+	private String cvlexaOpt;
 	// 备注
 	private String notes;
 	// 备注
 	private String remarks;
 
 	/** default constructor */
-	public PojoContract(){};
-	
+	public PojoContract() {
+	};
+
 	@Id
 	public Long getTID() {
 		return TID;
@@ -157,6 +176,14 @@ public class PojoContract implements Serializable{
 		this.debtorAmountLimit = debtorAmountLimit;
 	}
 
+	public String getDebtorTransAmtLimitType() {
+		return debtorTransAmtLimitType;
+	}
+
+	public void setDebtorTransAmtLimitType(String debtorTransAmtLimitType) {
+		this.debtorTransAmtLimitType = debtorTransAmtLimitType;
+	}
+
 	public Long getDebtorAccuAmountLimit() {
 		return debtorAccuAmountLimit;
 	}
@@ -165,12 +192,12 @@ public class PojoContract implements Serializable{
 		this.debtorAccuAmountLimit = debtorAccuAmountLimit;
 	}
 
-	public String getDebtorTransLimitType() {
-		return debtorTransLimitType;
+	public String getDebtorTransNumLimitType() {
+		return debtorTransNumLimitType;
 	}
 
-	public void setDebtorTransLimitType(String debtorTransLimitType) {
-		this.debtorTransLimitType = debtorTransLimitType;
+	public void setDebtorTransNumLimitType(String debtorTransNumLimitType) {
+		this.debtorTransNumLimitType = debtorTransNumLimitType;
 	}
 
 	public Long getDebtorTransLimit() {
@@ -189,6 +216,14 @@ public class PojoContract implements Serializable{
 		this.creditorAmountLimit = creditorAmountLimit;
 	}
 
+	public String getCreditorTransAmtLimitType() {
+		return creditorTransAmtLimitType;
+	}
+
+	public void setCreditorTransAmtLimitType(String creditorTransAmtLimitType) {
+		this.creditorTransAmtLimitType = creditorTransAmtLimitType;
+	}
+
 	public Long getCreditorAccuAmountLimit() {
 		return creditorAccuAmountLimit;
 	}
@@ -197,12 +232,12 @@ public class PojoContract implements Serializable{
 		this.creditorAccuAmountLimit = creditorAccuAmountLimit;
 	}
 
-	public String getCreditorTransLimitType() {
-		return creditorTransLimitType;
+	public String getCreditorTransNumLimitType() {
+		return creditorTransNumLimitType;
 	}
 
-	public void setCreditorTransLimitType(String creditorTransLimitType) {
-		this.creditorTransLimitType = creditorTransLimitType;
+	public void setCreditorTransNumLimitType(String creditorTransNumLimitType) {
+		this.creditorTransNumLimitType = creditorTransNumLimitType;
 	}
 
 	public Long getCreditorTransLimit() {
@@ -229,6 +264,22 @@ public class PojoContract implements Serializable{
 		this.expiryDate = expiryDate;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Long getInuser() {
+		return inuser;
+	}
+
+	public void setInuser(Long inuser) {
+		this.inuser = inuser;
+	}
+
 	public Date getInTime() {
 		return inTime;
 	}
@@ -237,12 +288,52 @@ public class PojoContract implements Serializable{
 		this.inTime = inTime;
 	}
 
-	public String getStatus() {
-		return status;
+	public Long getStexaUser() {
+		return stexaUser;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStexaUser(Long stexaUser) {
+		this.stexaUser = stexaUser;
+	}
+
+	public Date getStexaTime() {
+		return stexaTime;
+	}
+
+	public void setStexaTime(Date stexaTime) {
+		this.stexaTime = stexaTime;
+	}
+
+	public String getStexaOpt() {
+		return stexaOpt;
+	}
+
+	public void setStexaOpt(String stexaOpt) {
+		this.stexaOpt = stexaOpt;
+	}
+
+	public Long getCvlexaUser() {
+		return cvlexaUser;
+	}
+
+	public void setCvlexaUser(Long cvlexaUser) {
+		this.cvlexaUser = cvlexaUser;
+	}
+
+	public Date getCvlexaTime() {
+		return cvlexaTime;
+	}
+
+	public void setCvlexaTime(Date cvlexaTime) {
+		this.cvlexaTime = cvlexaTime;
+	}
+
+	public String getCvlexaOpt() {
+		return cvlexaOpt;
+	}
+
+	public void setCvlexaOpt(String cvlexaOpt) {
+		this.cvlexaOpt = cvlexaOpt;
 	}
 
 	public String getNotes() {

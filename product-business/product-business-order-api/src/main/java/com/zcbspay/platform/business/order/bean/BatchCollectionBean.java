@@ -1,14 +1,14 @@
-package com.zcbspay.platform.business.concentrate.bean;
+package com.zcbspay.platform.business.order.bean;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class BatchPaymentBean implements Serializable {
+public class BatchCollectionBean implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1546899005329182604L;
+	private static final long serialVersionUID = 2484449765259538617L;
 
 	private String version;// 版本
 	private String encoding;// 编码方式
@@ -21,7 +21,7 @@ public class BatchPaymentBean implements Serializable {
 	private String txnTime;// 订单发送时间
 	private String totalQty;// 总笔数
 	private String totalAmt;// 总金额
-	// private String fileContent;// 文件内容
+	//private String fileContent;// 文件内容
 	private String reserved;// 保留域
 	private String respCode;// 响应码
 	private String respMsg;// 应答信息
