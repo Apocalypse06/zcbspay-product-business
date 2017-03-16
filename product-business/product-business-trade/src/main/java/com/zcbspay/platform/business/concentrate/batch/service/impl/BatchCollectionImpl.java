@@ -33,6 +33,7 @@ public class BatchCollectionImpl implements BatchCollection {
 	public ResultBean pay(BatchCollectionBean batchCollectionBean) {
 		List<FileContentBean> fcbs = new ArrayList<>();
 		ResultBean resultBean = null;
+
 		if (batchCollectionBean == null || batchCollectionBean.getFileContent() == null) {
 			return new ResultBean("BP0000", "参数不能为空！");
 		}
@@ -48,6 +49,7 @@ public class BatchCollectionImpl implements BatchCollection {
 					&& fcb.getDebtorName().equals(contractBean.getDebtorName())
 					&& fcb.getDebtorAccount().equals(contractBean.getDebtorAccountNo())
 					&& fcb.getDebtorBank().equals(contractBean.getDebtorAccountNo())) {
+				// TODO:代收业务
 			} else {
 				return new ResultBean("BP？？？？", "合同信息有误！");
 			}

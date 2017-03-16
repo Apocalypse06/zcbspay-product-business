@@ -33,6 +33,7 @@ public class BatchPaymentImpl implements BatchPayment {
 	public ResultBean pay(BatchPaymentBean batchPaymentBean) {
 		List<FileContentBean> fcbs = new ArrayList<>();
 		ResultBean resultBean = null;
+		
 		if (batchPaymentBean == null) {
 			return new ResultBean("BP0000", "参数不能为空！");
 		}
