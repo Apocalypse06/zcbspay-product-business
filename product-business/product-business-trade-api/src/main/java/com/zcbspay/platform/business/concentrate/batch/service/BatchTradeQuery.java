@@ -4,7 +4,7 @@ import com.zcbspay.platform.business.concentrate.bean.ResultBean;
 
 public interface BatchTradeQuery {
 	/****
-	 * 根据tn查询订单
+	 * 根据tn查询批量交易
 	 * 
 	 * @param tn
 	 * @return

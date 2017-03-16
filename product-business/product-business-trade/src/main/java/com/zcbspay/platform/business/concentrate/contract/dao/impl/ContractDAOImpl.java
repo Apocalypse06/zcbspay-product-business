@@ -20,5 +20,4 @@ public class ContractDAOImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 		Object uniqueResult = criteria.uniqueResult();
 		return BeanCopyUtil.copyBean(ContractBean.class, uniqueResult);
 	}
-
 }

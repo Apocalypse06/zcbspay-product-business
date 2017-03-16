@@ -6,7 +6,7 @@ import com.zcbspay.platform.business.concentrate.bean.ResultBean;
 public interface BatchCollection {
 
 	/**
-	 * 订单支付
+	 * 批量代收
 	 * 
 	 * @param batchCollectionBean
 	 * @return

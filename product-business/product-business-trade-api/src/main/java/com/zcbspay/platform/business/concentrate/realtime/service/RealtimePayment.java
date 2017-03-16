@@ -6,7 +6,7 @@ import com.zcbspay.platform.business.concentrate.bean.ResultBean;
 public interface RealtimePayment {
 	
 	/**
-	 * 订单支付
+	 * 实时代付
 	 * @param realtimePaymentBean
 	 * @return
 	 */
