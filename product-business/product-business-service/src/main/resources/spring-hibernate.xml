@@ -47,8 +47,7 @@
 		<!-- 注解方式配置 -->
 		<property name="packagesToScan">
 			<list>
-				<value>com.zcbspay.platform.business.concentrate.batch.pojo</value>
-				<value>com.zcbspay.platform.business.concentrate.realtime.pojo</value>
+				<value>com.zcbspay.platform.business.concentrate.contract.pojo</value>
 <!-- 				<value>com.zlebank.zplatform.payment.pojo</value>			 -->
 			</list>
 		</property>
