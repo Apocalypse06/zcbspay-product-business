@@ -276,5 +276,8 @@
     <module>product-business-trade</module>
     <module>product-business-service</module>
     <module>product-business-trade-test</module>
+    <module>product-business-trade-simple</module>
+    <module>product-business-order-simple</module>
+    <module>product-business-order-service</module>
 	</modules>
 </project>

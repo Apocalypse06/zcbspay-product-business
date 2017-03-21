@@ -4,17 +4,19 @@
 	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	
 	<!-- 集中代收付 - 时实代收 -->
 	<dubbo:service interface="com.zcbspay.platform.business.concentrate.realtime.service.RealtimeCollection" ref="realtimeCollectionService" retries="0" version="1.0" timeout="60000"/>
 	<!-- 集中代收付 - 时实代付 -->
 	<dubbo:service interface="com.zcbspay.platform.business.concentrate.realtime.service.RealtimePayment" ref="realtimePaymentService" retries="0" version="1.0" timeout="60000"/>
-	<!-- 集中代收付 - 交易查询 -->
-	<dubbo:service interface="com.zcbspay.platform.business.concentrate.realtime.service.RealtimeTradeQuery" ref="realtimeTradeQueryService" retries="0" version="1.0" timeout="60000"/>
 	
 	<!-- 集中代收付 - 批量代收 -->
 	<dubbo:service interface="com.zcbspay.platform.business.concentrate.batch.service.BatchCollection" ref="batchCollectionService" retries="0" version="1.0" timeout="60000"/>
 	<!-- 集中代收付 - 批量代付-->
 	<dubbo:service interface="com.zcbspay.platform.business.concentrate.batch.service.BatchPayment" ref="batchPaymentService" retries="0" version="1.0" timeout="60000"/>
-	<!-- 集中代收付 - 交易查询 -->
-	<dubbo:service interface="com.zcbspay.platform.business.concentrate.batch.service.BatchTradeQuery" ref="batchTradeQueryService" retries="0" version="1.0" timeout="60000"/>
+	
+	<!-- 调取服务 -->
+	<dubbo:reference id="orderConcentrateService" interface="com.zcbspay.platform.business.order.service.OrderConcentrateService" retries="10" version="1.0"/>
+	<dubbo:reference id="realTimeTrade" interface="com.zcbspay.platform.payment.concentrate.RealTimeTrade" retries="10" version="1.0"/>
+	<dubbo:reference id="batchTrade" interface="com.zcbspay.platform.payment.concentrate.BatchTrade" retries="10" version="1.0"/>
 </beans>

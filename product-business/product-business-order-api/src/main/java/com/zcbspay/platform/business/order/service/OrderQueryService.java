@@ -9,7 +9,7 @@ import com.zcbspay.platform.business.order.bean.ResultBean;
  * @author lianhai
  *
  */
-public interface QueryOrderService {
+public interface OrderQueryService {
 	/**
 	 * 交易订单查询方法
 	 * 

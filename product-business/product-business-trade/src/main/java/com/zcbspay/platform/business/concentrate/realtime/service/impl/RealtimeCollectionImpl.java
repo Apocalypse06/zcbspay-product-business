@@ -10,17 +10,17 @@ import com.zcbspay.platform.business.concentrate.bean.ResultBean;
 import com.zcbspay.platform.business.concentrate.contract.dao.ContractDAO;
 import com.zcbspay.platform.business.concentrate.realtime.service.RealtimeCollection;
 import com.zcbspay.platform.business.exception.BusinessOrderException;
-import com.zcbspay.platform.business.order.service.ConcentrateOrderService;
+import com.zcbspay.platform.business.order.service.OrderConcentrateService;
 import com.zcbspay.platform.payment.concentrate.RealTimeTrade;
 import com.zcbspay.platform.payment.exception.ConcentrateTradeException;
 
-@Service
+@Service("realtimeCollectionService")
 public class RealtimeCollectionImpl implements RealtimeCollection {
 	@Autowired
 	private ContractDAO contractDAO;
 
 	@Autowired
-	private ConcentrateOrderService concentrateOrderService;
+	private OrderConcentrateService orderConcentrateService;
 	
 	@Autowired
 	private RealTimeTrade realTimeTrade;
@@ -48,7 +48,7 @@ public class RealtimeCollectionImpl implements RealtimeCollection {
 			try {
 				// 创建订单，并获取tn
 				resultBean = BeanCopyUtil.copyBean(ResultBean.class,
-						concentrateOrderService.createCollectionChargesOrder(rtccBean));
+						orderConcentrateService.createCollectionChargesOrder(rtccBean));
 				String tn = (String) resultBean.getResultObj();
 				
 				// 支付

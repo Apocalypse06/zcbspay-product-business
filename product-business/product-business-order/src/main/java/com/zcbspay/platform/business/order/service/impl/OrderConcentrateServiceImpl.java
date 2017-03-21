@@ -1,8 +1,7 @@
 package com.zcbspay.platform.business.order.service.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.zcbspay.platform.business.commons.utils.BeanCopyUtil;
@@ -12,14 +11,15 @@ import com.zcbspay.platform.business.order.bean.BatchPaymentBean;
 import com.zcbspay.platform.business.order.bean.RealtimeCollectionBean;
 import com.zcbspay.platform.business.order.bean.RealtimePaymentBean;
 import com.zcbspay.platform.business.order.bean.ResultBean;
-import com.zcbspay.platform.business.order.service.ConcentrateOrderService;
+import com.zcbspay.platform.business.order.service.OrderConcentrateService;
 
-@Service
-public class ConcentrateOrderServiceImpl implements ConcentrateOrderService {
+@Service("orderConcentrateService")
+public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 
-	private static final Logger log = LoggerFactory.getLogger(ConcentrateOrderServiceImpl.class);
+//	private static final Logger log = LoggerFactory.getLogger(ConcentrateOrderServiceImpl.class);
 
 	@Autowired
+	@Qualifier("concentrateOrderService")
 	private com.zcbspay.platform.payment.order.service.ConcentrateOrderService concentrateOrderService;
 
 	@Override
@@ -38,7 +38,7 @@ public class ConcentrateOrderServiceImpl implements ConcentrateOrderService {
 			return new ResultBean(tn);
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error(e.getMessage());
+//			log.error(e.getMessage());
 			throw new BusinessOrderException("BO0002");// 创建订单异常
 		}
 	}
@@ -57,7 +57,7 @@ public class ConcentrateOrderServiceImpl implements ConcentrateOrderService {
 			return new ResultBean(tn);
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error(e.getMessage());
+//			log.error(e.getMessage());
 			throw new BusinessOrderException("BO0002");// 创建订单异常
 		}
 	}
@@ -76,7 +76,7 @@ public class ConcentrateOrderServiceImpl implements ConcentrateOrderService {
 			return new ResultBean(tn);
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error(e.getMessage());
+//			log.error(e.getMessage());
 			throw new BusinessOrderException("BO0002");// 创建订单异常
 		}
 	}
@@ -94,7 +94,7 @@ public class ConcentrateOrderServiceImpl implements ConcentrateOrderService {
 			return new ResultBean(tn);
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error(e.getMessage());
+//			log.error(e.getMessage());
 			throw new BusinessOrderException("BO0002");// 创建订单异常
 		}
 	}

@@ -8,10 +8,10 @@ import com.zcbspay.platform.business.exception.QueryOrderException;
 import com.zcbspay.platform.business.order.bean.BatchResultBean;
 import com.zcbspay.platform.business.order.bean.OrderResultBean;
 import com.zcbspay.platform.business.order.bean.ResultBean;
-import com.zcbspay.platform.business.order.service.QueryOrderService;
+import com.zcbspay.platform.business.order.service.OrderQueryService;
 
-@Service
-public class QueryOrderServiceImpl implements QueryOrderService {
+@Service("orderQueryService")
+public class OrderQueryServiceImpl implements OrderQueryService {
 
 	@Autowired
 	private com.zcbspay.platform.support.order.query.query.service.QueryOrderService queryOrderService;

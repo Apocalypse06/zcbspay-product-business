@@ -15,7 +15,7 @@ import com.zcbspay.platform.business.order.bean.ResultBean;
  * @date 2017年3月15日 15:39:53
  * @since
  */
-public interface ConcentrateOrderService {
+public interface OrderConcentrateService {
 	/**
 	 * 实时代收订单易接口
 	 * @param realtimeCollectionBean

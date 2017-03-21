@@ -14,17 +14,17 @@ import com.zcbspay.platform.business.concentrate.bean.FileContentBean;
 import com.zcbspay.platform.business.concentrate.bean.ResultBean;
 import com.zcbspay.platform.business.concentrate.contract.dao.ContractDAO;
 import com.zcbspay.platform.business.exception.BusinessOrderException;
-import com.zcbspay.platform.business.order.service.ConcentrateOrderService;
+import com.zcbspay.platform.business.order.service.OrderConcentrateService;
 import com.zcbspay.platform.payment.concentrate.BatchTrade;
 import com.zcbspay.platform.payment.exception.ConcentrateTradeException;
 
-@Service
+@Service("batchCollectionService")
 public class BatchCollectionImpl implements BatchCollection {
 	@Autowired
 	private ContractDAO contractDAO;
 
 	@Autowired
-	private ConcentrateOrderService concentrateOrderService;
+	private OrderConcentrateService orderConcentrateService;
 
 	@Autowired
 	private BatchTrade batchTrade;
@@ -49,7 +49,6 @@ public class BatchCollectionImpl implements BatchCollection {
 					&& fcb.getDebtorName().equals(contractBean.getDebtorName())
 					&& fcb.getDebtorAccount().equals(contractBean.getDebtorAccountNo())
 					&& fcb.getDebtorBank().equals(contractBean.getDebtorAccountNo())) {
-				// TODO:代收业务
 			} else {
 				return new ResultBean("BP？？？？", "合同信息有误！");
 			}
@@ -61,7 +60,7 @@ public class BatchCollectionImpl implements BatchCollection {
 		try {
 			// 创建订单，并获取tn
 			resultBean = BeanCopyUtil.copyBean(ResultBean.class,
-					concentrateOrderService.createCollectionChargesBatchOrder(bcBean));
+					orderConcentrateService.createCollectionChargesBatchOrder(bcBean));
 			String tn = (String) resultBean.getResultObj();
 			
 			// 支付

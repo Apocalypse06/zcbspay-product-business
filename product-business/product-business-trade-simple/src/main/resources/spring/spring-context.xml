@@ -13,16 +13,16 @@
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 	<!--启用注解 -->
 	<context:annotation-config />
+	<context:component-scan base-package="com.zcbspay.platform"/>
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	 <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
         <property name="locations">  
-           <list>  
+           <list>
               <value>classpath:*.properties</value>  
             </list>  
         </property>  
     </bean>
-	<context:component-scan base-package="com.zcbspay.platform"/>
-	<bean id="logHelper" class="com.zcbspay.platform.manager.utils.LogHelper"/>
+    <bean id="logHelper" class="com.zcbspay.platform.business.commons.utils.LogHelper"/>
 	<aop:config>
 	    <aop:aspect ref="logHelper">
 	        <aop:pointcut id="pointcut" expression="execution(* com.zcbspay.platform..*.*(..))"/>
@@ -32,4 +32,7 @@
 	        <aop:after-throwing method="throwException" pointcut-ref="pointcut" throwing="ex" />
 	    </aop:aspect>
 	</aop:config>
+	
+	<import resource="classpath:/spring-hibernate.xml"/>
+	<import resource="classpath:/spring-dubbo.xml"/>
 </beans>
