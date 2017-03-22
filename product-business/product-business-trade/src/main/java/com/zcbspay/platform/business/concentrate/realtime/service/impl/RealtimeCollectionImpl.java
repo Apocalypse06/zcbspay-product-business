@@ -54,6 +54,7 @@ public class RealtimeCollectionImpl implements RealtimeCollection {
 			
 			com.zcbspay.platform.business.order.bean.RealtimeCollectionBean rtccBean = BeanCopyUtil.copyBean(
 					com.zcbspay.platform.business.order.bean.RealtimeCollectionBean.class, realtimeCollectionBean);
+			rtccBean.setMerId(realtimeCollectionBean.getMerchNo());
 			try {
 				// 创建订单，并获取tn
 				resultBean = BeanCopyUtil.copyBean(ResultBean.class,

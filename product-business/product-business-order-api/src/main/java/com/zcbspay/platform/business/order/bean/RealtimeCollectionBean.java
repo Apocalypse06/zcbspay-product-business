@@ -16,7 +16,7 @@ public class RealtimeCollectionBean implements Serializable {
 	private String txnSubType;//交易子类
 	private String bizType;//产品类型
 	private String backUrl;//通知地址
-	private String merchNo;//商户号
+	private String merId;//商户号
 	private String merName;//商户全称
 	private String merAbbr;//商户简称
 	private String orderId;//商户订单号
@@ -72,11 +72,11 @@ public class RealtimeCollectionBean implements Serializable {
 	public void setBackUrl(String backUrl) {
 		this.backUrl = backUrl;
 	}
-	public String getMerchNo() {
-		return merchNo;
+	public String getMerId() {
+		return merId;
 	}
-	public void setMerchNo(String merchNo) {
-		this.merchNo = merchNo;
+	public void setMerId(String merId) {
+		this.merId = merId;
 	}
 	public String getMerName() {
 		return merName;
