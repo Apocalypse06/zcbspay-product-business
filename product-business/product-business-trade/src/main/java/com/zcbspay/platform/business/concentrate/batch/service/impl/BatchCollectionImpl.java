@@ -74,6 +74,9 @@ public class BatchCollectionImpl implements BatchCollection {
 		} catch (ConcentrateTradeException e) {
 			e.printStackTrace();
 			return new ResultBean("BP？？？？", "支付失败！");
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResultBean("BP？？？？", "支付异常！");
 		}
 	}
 

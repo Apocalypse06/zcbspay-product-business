@@ -3,9 +3,12 @@ package com.zcbspay.platform.business.concentrate.contract.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "T_CONTRACT")
@@ -78,16 +81,25 @@ public class PojoContract implements Serializable {
 	private Date cvlexaTime;
 	// 复核意见
 	private String cvlexaOpt;
+	// 注销人
+	private Long withdrawUser;
+	// 注销时间
+	private Date withdrawTime;
+	// 注销原因
+	private String withdrawOpt;
 	// 备注
 	private String notes;
 	// 备注
 	private String remarks;
+	// 附件地址
+	private String fileAddress;
 
 	/** default constructor */
 	public PojoContract() {
 	};
 
 	@Id
+	@Column(name = "TID", unique = true, nullable = false, precision = 10, scale = 0)
 	public Long getTID() {
 		return TID;
 	}
@@ -96,6 +108,7 @@ public class PojoContract implements Serializable {
 		TID = tID;
 	}
 
+	@Column(name = "CONTRACTNUM", length = 60)
 	public String getContractNum() {
 		return contractNum;
 	}
@@ -104,6 +117,7 @@ public class PojoContract implements Serializable {
 		this.contractNum = contractNum;
 	}
 
+	@Column(name = "MERCHNO", length = 15)
 	public String getMerchNo() {
 		return merchNo;
 	}
@@ -112,6 +126,7 @@ public class PojoContract implements Serializable {
 		this.merchNo = merchNo;
 	}
 
+	@Column(name = "DEBTORNAME", length = 120)
 	public String getDebtorName() {
 		return debtorName;
 	}
@@ -120,6 +135,7 @@ public class PojoContract implements Serializable {
 		this.debtorName = debtorName;
 	}
 
+	@Column(name = "DEBTORACCOUNTNO", length = 32)
 	public String getDebtorAccountNo() {
 		return debtorAccountNo;
 	}
@@ -128,6 +144,7 @@ public class PojoContract implements Serializable {
 		this.debtorAccountNo = debtorAccountNo;
 	}
 
+	@Column(name = "DEBTORBRANCHCODE", length = 14)
 	public String getDebtorBranchCode() {
 		return debtorBranchCode;
 	}
@@ -136,6 +153,7 @@ public class PojoContract implements Serializable {
 		this.debtorBranchCode = debtorBranchCode;
 	}
 
+	@Column(name = "CREDITORNAME", length = 120)
 	public String getCreditorName() {
 		return creditorName;
 	}
@@ -144,6 +162,7 @@ public class PojoContract implements Serializable {
 		this.creditorName = creditorName;
 	}
 
+	@Column(name = "CREDITORACCOUNTNO", length = 32)
 	public String getCreditorAccountNo() {
 		return creditorAccountNo;
 	}
@@ -152,6 +171,7 @@ public class PojoContract implements Serializable {
 		this.creditorAccountNo = creditorAccountNo;
 	}
 
+	@Column(name = "CREDITORBRANCHCODE", length = 14)
 	public String getCreditorBranchCode() {
 		return creditorBranchCode;
 	}
@@ -160,6 +180,7 @@ public class PojoContract implements Serializable {
 		this.creditorBranchCode = creditorBranchCode;
 	}
 
+	@Column(name = "CONTRACTTYPE", length = 4)
 	public String getContractType() {
 		return contractType;
 	}
@@ -168,6 +189,7 @@ public class PojoContract implements Serializable {
 		this.contractType = contractType;
 	}
 
+	@Column(name = "DEBTORAMOUNTLIMIT", precision = 12, scale = 0)
 	public Long getDebtorAmountLimit() {
 		return debtorAmountLimit;
 	}
@@ -176,6 +198,7 @@ public class PojoContract implements Serializable {
 		this.debtorAmountLimit = debtorAmountLimit;
 	}
 
+	@Column(name = "DEBTORTRANSAMTLIMITTYPE", length = 2)
 	public String getDebtorTransAmtLimitType() {
 		return debtorTransAmtLimitType;
 	}
@@ -184,6 +207,7 @@ public class PojoContract implements Serializable {
 		this.debtorTransAmtLimitType = debtorTransAmtLimitType;
 	}
 
+	@Column(name = "DEBTORACCUAMOUNTLIMIT", precision = 12, scale = 0)
 	public Long getDebtorAccuAmountLimit() {
 		return debtorAccuAmountLimit;
 	}
@@ -192,6 +216,7 @@ public class PojoContract implements Serializable {
 		this.debtorAccuAmountLimit = debtorAccuAmountLimit;
 	}
 
+	@Column(name = "DEBTORTRANSNUMLIMITTYPE", length = 2)
 	public String getDebtorTransNumLimitType() {
 		return debtorTransNumLimitType;
 	}
@@ -200,6 +225,7 @@ public class PojoContract implements Serializable {
 		this.debtorTransNumLimitType = debtorTransNumLimitType;
 	}
 
+	@Column(name = "DEBTORTRANSLIMIT", precision = 12, scale = 0)
 	public Long getDebtorTransLimit() {
 		return debtorTransLimit;
 	}
@@ -208,6 +234,7 @@ public class PojoContract implements Serializable {
 		this.debtorTransLimit = debtorTransLimit;
 	}
 
+	@Column(name = "CREDITORAMOUNTLIMIT", precision = 12, scale = 0)
 	public Long getCreditorAmountLimit() {
 		return creditorAmountLimit;
 	}
@@ -216,6 +243,7 @@ public class PojoContract implements Serializable {
 		this.creditorAmountLimit = creditorAmountLimit;
 	}
 
+	@Column(name = "CREDITORTRANSAMTLIMITTYPE", length = 2)
 	public String getCreditorTransAmtLimitType() {
 		return creditorTransAmtLimitType;
 	}
@@ -224,6 +252,7 @@ public class PojoContract implements Serializable {
 		this.creditorTransAmtLimitType = creditorTransAmtLimitType;
 	}
 
+	@Column(name = "CREDITORACCUAMOUNTLIMIT", precision = 12, scale = 0)
 	public Long getCreditorAccuAmountLimit() {
 		return creditorAccuAmountLimit;
 	}
@@ -232,6 +261,7 @@ public class PojoContract implements Serializable {
 		this.creditorAccuAmountLimit = creditorAccuAmountLimit;
 	}
 
+	@Column(name = "CREDITORTRANSNUMLIMITTYPE", length = 2)
 	public String getCreditorTransNumLimitType() {
 		return creditorTransNumLimitType;
 	}
@@ -240,6 +270,7 @@ public class PojoContract implements Serializable {
 		this.creditorTransNumLimitType = creditorTransNumLimitType;
 	}
 
+	@Column(name = "CREDITORTRANSLIMIT", precision = 12, scale = 0)
 	public Long getCreditorTransLimit() {
 		return creditorTransLimit;
 	}
@@ -248,6 +279,7 @@ public class PojoContract implements Serializable {
 		this.creditorTransLimit = creditorTransLimit;
 	}
 
+	@Column(name = "SIGNDATE", length = 10)
 	public String getSignDate() {
 		return signDate;
 	}
@@ -256,6 +288,7 @@ public class PojoContract implements Serializable {
 		this.signDate = signDate;
 	}
 
+	@Column(name = "EXPIRYDATE", length = 10)
 	public String getExpiryDate() {
 		return expiryDate;
 	}
@@ -264,6 +297,7 @@ public class PojoContract implements Serializable {
 		this.expiryDate = expiryDate;
 	}
 
+	@Column(name = "STATUS", length = 2)
 	public String getStatus() {
 		return status;
 	}
@@ -272,6 +306,7 @@ public class PojoContract implements Serializable {
 		this.status = status;
 	}
 
+	@Column(name = "INUSER", precision = 10, scale = 0)
 	public Long getInuser() {
 		return inuser;
 	}
@@ -280,6 +315,8 @@ public class PojoContract implements Serializable {
 		this.inuser = inuser;
 	}
 
+	@Temporal(TemporalType.DATE)
+	@Column(name = "INTIME", length = 7)
 	public Date getInTime() {
 		return inTime;
 	}
@@ -288,6 +325,7 @@ public class PojoContract implements Serializable {
 		this.inTime = inTime;
 	}
 
+	@Column(name = "STEXAUSER", precision = 10, scale = 0)
 	public Long getStexaUser() {
 		return stexaUser;
 	}
@@ -296,6 +334,8 @@ public class PojoContract implements Serializable {
 		this.stexaUser = stexaUser;
 	}
 
+	@Temporal(TemporalType.DATE)
+	@Column(name = "STEXATIME", length = 7)
 	public Date getStexaTime() {
 		return stexaTime;
 	}
@@ -304,6 +344,7 @@ public class PojoContract implements Serializable {
 		this.stexaTime = stexaTime;
 	}
 
+	@Column(name = "STEXAOPT", length = 256)
 	public String getStexaOpt() {
 		return stexaOpt;
 	}
@@ -312,6 +353,7 @@ public class PojoContract implements Serializable {
 		this.stexaOpt = stexaOpt;
 	}
 
+	@Column(name = "CVLEXAUSER", precision = 10, scale = 0)
 	public Long getCvlexaUser() {
 		return cvlexaUser;
 	}
@@ -320,6 +362,8 @@ public class PojoContract implements Serializable {
 		this.cvlexaUser = cvlexaUser;
 	}
 
+	@Temporal(TemporalType.DATE)
+	@Column(name = "CVLEXATIME", length = 7)
 	public Date getCvlexaTime() {
 		return cvlexaTime;
 	}
@@ -328,6 +372,7 @@ public class PojoContract implements Serializable {
 		this.cvlexaTime = cvlexaTime;
 	}
 
+	@Column(name = "CVLEXAOPT", length = 256)
 	public String getCvlexaOpt() {
 		return cvlexaOpt;
 	}
@@ -336,6 +381,35 @@ public class PojoContract implements Serializable {
 		this.cvlexaOpt = cvlexaOpt;
 	}
 
+	@Column(name = "WITHDRAWUSER", length = 10)
+	public Long getWithdrawUser() {
+		return withdrawUser;
+	}
+
+	public void setWithdrawUser(Long withdrawUser) {
+		this.withdrawUser = withdrawUser;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "WITHDRAWTIME", length = 7)
+	public Date getWithdrawTime() {
+		return withdrawTime;
+	}
+
+	public void setWithdrawTime(Date withdrawTime) {
+		this.withdrawTime = withdrawTime;
+	}
+
+	@Column(name = "WITHDRAWOPT", precision = 10, scale = 0)
+	public String getWithdrawOpt() {
+		return withdrawOpt;
+	}
+
+	public void setWithdrawOpt(String withdrawOpt) {
+		this.withdrawOpt = withdrawOpt;
+	}
+
+	@Column(name = "NOTES", length = 256)
 	public String getNotes() {
 		return notes;
 	}
@@ -344,12 +418,22 @@ public class PojoContract implements Serializable {
 		this.notes = notes;
 	}
 
+	@Column(name = "REMARKS", length = 256)
 	public String getRemarks() {
 		return remarks;
 	}
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	@Column(name = "FILEADDRESS", length = 256)
+	public String getFileAddress() {
+		return fileAddress;
+	}
+
+	public void setFileAddress(String fileAddress) {
+		this.fileAddress = fileAddress;
 	}
 
 }

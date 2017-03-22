@@ -40,17 +40,17 @@ public class RealtimePaymentImpl implements RealtimePayment {
 				&& realtimePaymentBean.getDebtorAccount().equals(contractBean.getDebtorAccountNo())
 				&& realtimePaymentBean.getDebtorBank().equals(contractBean.getDebtorAccountNo())) {
 
-			com.zcbspay.platform.business.order.bean.RealtimePaymentBean rtpBean = BeanCopyUtil.copyBean(
-					com.zcbspay.platform.business.order.bean.RealtimePaymentBean.class, realtimePaymentBean);
-			
+			com.zcbspay.platform.business.order.bean.RealtimePaymentBean rtpBean = BeanCopyUtil
+					.copyBean(com.zcbspay.platform.business.order.bean.RealtimePaymentBean.class, realtimePaymentBean);
+
 			try {
 				// 创建订单，并获取tn
 				resultBean = BeanCopyUtil.copyBean(ResultBean.class,
 						orderConcentrateService.createPaymentByAgencyOrder(rtpBean));
 				String tn = (String) resultBean.getResultObj();
-				
+
 				// 支付
-				resultBean = BeanCopyUtil.copyBean(ResultBean.class,realTimeTrade.paymentByAgency(tn));
+				resultBean = BeanCopyUtil.copyBean(ResultBean.class, realTimeTrade.paymentByAgency(tn));
 				return resultBean;
 			} catch (BusinessOrderException e) {
 				e.printStackTrace();
@@ -58,9 +58,11 @@ public class RealtimePaymentImpl implements RealtimePayment {
 			} catch (ConcentrateTradeException e) {
 				e.printStackTrace();
 				return new ResultBean("BP？？？？", "支付失败！");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ResultBean("BP？？？？", "支付异常！");
 			}
-			
-			
+
 		} else {
 			return new ResultBean("BP？？？？", "合同信息有误！");
 		}

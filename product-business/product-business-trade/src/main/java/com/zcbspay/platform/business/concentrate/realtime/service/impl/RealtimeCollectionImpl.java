@@ -60,6 +60,9 @@ public class RealtimeCollectionImpl implements RealtimeCollection {
 			} catch (ConcentrateTradeException e) {
 				e.printStackTrace();
 				return new ResultBean("BP？？？？", "支付失败！");
+			}catch (Exception e) {
+				e.printStackTrace();
+				return new ResultBean("BP？？？？", "支付异常！");
 			}
 		} else {
 			return new ResultBean("BP？？？？", "合同信息有误！");
