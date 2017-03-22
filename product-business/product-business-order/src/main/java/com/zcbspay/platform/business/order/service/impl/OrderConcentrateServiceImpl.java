@@ -79,7 +79,8 @@ public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 					com.zcbspay.platform.payment.order.bean.ConcentrateBatchOrderBean.class, batchCollectionBean);
 			String tn = this.concentrateOrderService.createCollectionChargesBatchOrder(cboBean);
 			// 文件域赋值
-			for (com.zcbspay.platform.business.order.bean.FileContentBean fcBean : batchCollectionBean.getFileContent()) {
+			for (com.zcbspay.platform.business.order.bean.FileContentBean fcBean : batchCollectionBean
+					.getFileContent()) {
 				com.zcbspay.platform.payment.order.bean.ConcentrateOrderDetaBean codBean = BeanCopyUtil
 						.copyBean(com.zcbspay.platform.payment.order.bean.ConcentrateOrderDetaBean.class, fcBean);
 				codBeans.add(codBean);
