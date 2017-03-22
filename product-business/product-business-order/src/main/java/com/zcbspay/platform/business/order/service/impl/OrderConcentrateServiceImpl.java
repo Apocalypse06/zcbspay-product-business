@@ -77,14 +77,16 @@ public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 			}
 			com.zcbspay.platform.payment.order.bean.ConcentrateBatchOrderBean cboBean = BeanCopyUtil.copyBean(
 					com.zcbspay.platform.payment.order.bean.ConcentrateBatchOrderBean.class, batchCollectionBean);
-			String tn = this.concentrateOrderService.createCollectionChargesBatchOrder(cboBean);
 			// 文件域赋值
-			for (com.zcbspay.platform.business.order.bean.FileContentBean fcBean : batchCollectionBean.getFileContent()) {
+			for (com.zcbspay.platform.business.order.bean.FileContentBean fcBean : batchCollectionBean
+					.getFileContent()) {
 				com.zcbspay.platform.payment.order.bean.ConcentrateOrderDetaBean codBean = BeanCopyUtil
 						.copyBean(com.zcbspay.platform.payment.order.bean.ConcentrateOrderDetaBean.class, fcBean);
 				codBeans.add(codBean);
 			}
 			cboBean.setDetaList(codBeans);
+			
+			String tn = this.concentrateOrderService.createCollectionChargesBatchOrder(cboBean);
 			return new ResultBean(tn);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -110,6 +112,7 @@ public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 				codBeans.add(codBean);
 			}
 			cboBean.setDetaList(codBeans);
+			
 			String tn = this.concentrateOrderService.createPaymentByAgencyBatchOrder(cboBean);
 			return new ResultBean(tn);
 		} catch (Exception e) {
