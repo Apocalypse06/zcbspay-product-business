@@ -50,7 +50,7 @@ public class RealtimeCollectionImpl implements RealtimeCollection {
 				&& realtimeCollectionBean.getCreditorAccount().equals(contractBean.getCreditorAccountNo())
 				&& realtimeCollectionBean.getDebtorName().equals(contractBean.getDebtorName())
 				&& realtimeCollectionBean.getDebtorAccount().equals(contractBean.getDebtorAccountNo())
-				&& realtimeCollectionBean.getDebtorBank().equals(contractBean.getDebtorAccountNo())) {
+				&& realtimeCollectionBean.getDebtorBank().equals(contractBean.getDebtorBranchCode())) {
 			
 			com.zcbspay.platform.business.order.bean.RealtimeCollectionBean rtccBean = BeanCopyUtil.copyBean(
 					com.zcbspay.platform.business.order.bean.RealtimeCollectionBean.class, realtimeCollectionBean);

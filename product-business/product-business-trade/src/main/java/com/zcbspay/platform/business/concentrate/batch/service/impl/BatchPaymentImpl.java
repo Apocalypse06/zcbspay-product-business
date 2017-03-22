@@ -52,7 +52,7 @@ public class BatchPaymentImpl implements BatchPayment {
 			// 检查代收付账户信息是否和合同中匹配
 			if (fcb.getDebtorName().equals(contractBean.getDebtorName())
 					&& fcb.getDebtorAccount().equals(contractBean.getDebtorAccountNo())
-					&& fcb.getDebtorBank().equals(contractBean.getDebtorAccountNo())) {
+					&& fcb.getDebtorBank().equals(contractBean.getDebtorBranchCode())) {
 			} else {
 				return new ResultBean("BP？？？？", "合同信息有误！");
 			}

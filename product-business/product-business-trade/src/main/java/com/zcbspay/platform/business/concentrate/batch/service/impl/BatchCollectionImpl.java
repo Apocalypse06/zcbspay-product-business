@@ -58,7 +58,7 @@ public class BatchCollectionImpl implements BatchCollection {
 					&& fcb.getCreditorAccount().equals(contractBean.getCreditorAccountNo())
 					&& fcb.getDebtorName().equals(contractBean.getDebtorName())
 					&& fcb.getDebtorAccount().equals(contractBean.getDebtorAccountNo())
-					&& fcb.getDebtorBank().equals(contractBean.getDebtorAccountNo())) {
+					&& fcb.getDebtorBank().equals(contractBean.getDebtorBranchCode())) {
 			} else {
 				return new ResultBean("BP？？？？", "合同信息有误！");
 			}

@@ -47,7 +47,7 @@ public class RealtimePaymentImpl implements RealtimePayment {
 		// 检查代收付账户信息是否和合同中匹配
 		if (realtimePaymentBean.getDebtorName().equals(contractBean.getDebtorName())
 				&& realtimePaymentBean.getDebtorAccount().equals(contractBean.getDebtorAccountNo())
-				&& realtimePaymentBean.getDebtorBank().equals(contractBean.getDebtorAccountNo())) {
+				&& realtimePaymentBean.getDebtorBank().equals(contractBean.getDebtorBranchCode())) {
 
 			com.zcbspay.platform.business.order.bean.RealtimePaymentBean rtpBean = BeanCopyUtil
 					.copyBean(com.zcbspay.platform.business.order.bean.RealtimePaymentBean.class, realtimePaymentBean);
