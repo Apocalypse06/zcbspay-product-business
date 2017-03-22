@@ -1,5 +1,8 @@
 package com.zcbspay.platform.business.order.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -16,7 +19,8 @@ import com.zcbspay.platform.business.order.service.OrderConcentrateService;
 @Service("orderConcentrateService")
 public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 
-//	private static final Logger log = LoggerFactory.getLogger(ConcentrateOrderServiceImpl.class);
+	// private static final Logger log =
+	// LoggerFactory.getLogger(ConcentrateOrderServiceImpl.class);
 
 	@Autowired
 	@Qualifier("concentrateOrderService")
@@ -38,7 +42,7 @@ public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 			return new ResultBean(tn);
 		} catch (Exception e) {
 			e.printStackTrace();
-//			log.error(e.getMessage());
+			// log.error(e.getMessage());
 			throw new BusinessOrderException("BO0002");// 创建订单异常
 		}
 	}
@@ -57,7 +61,7 @@ public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 			return new ResultBean(tn);
 		} catch (Exception e) {
 			e.printStackTrace();
-//			log.error(e.getMessage());
+			// log.error(e.getMessage());
 			throw new BusinessOrderException("BO0002");// 创建订单异常
 		}
 	}
@@ -65,6 +69,7 @@ public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 	@Override
 	public ResultBean createCollectionChargesBatchOrder(BatchCollectionBean batchCollectionBean)
 			throws BusinessOrderException {
+		List<com.zcbspay.platform.payment.order.bean.ConcentrateOrderDetaBean> codBeans = new ArrayList<>();
 		try {
 			if (batchCollectionBean == null || batchCollectionBean.getTxnSubType() == null
 					|| batchCollectionBean.getTxnType() == null || batchCollectionBean.getBizType() == null) {
@@ -73,16 +78,24 @@ public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 			com.zcbspay.platform.payment.order.bean.ConcentrateBatchOrderBean cboBean = BeanCopyUtil.copyBean(
 					com.zcbspay.platform.payment.order.bean.ConcentrateBatchOrderBean.class, batchCollectionBean);
 			String tn = this.concentrateOrderService.createCollectionChargesBatchOrder(cboBean);
+			// 文件域赋值
+			for (com.zcbspay.platform.business.order.bean.FileContentBean fcBean : batchCollectionBean.getFileContent()) {
+				com.zcbspay.platform.payment.order.bean.ConcentrateOrderDetaBean codBean = BeanCopyUtil
+						.copyBean(com.zcbspay.platform.payment.order.bean.ConcentrateOrderDetaBean.class, fcBean);
+				codBeans.add(codBean);
+			}
+			cboBean.setDetaList(codBeans);
 			return new ResultBean(tn);
 		} catch (Exception e) {
 			e.printStackTrace();
-//			log.error(e.getMessage());
+			// log.error(e.getMessage());
 			throw new BusinessOrderException("BO0002");// 创建订单异常
 		}
 	}
 
 	@Override
 	public ResultBean createPaymentByAgencyBatchOrder(BatchPaymentBean batchPaymentBean) throws BusinessOrderException {
+		List<com.zcbspay.platform.payment.order.bean.ConcentrateOrderDetaBean> codBeans = new ArrayList<>();
 		try {
 			if (batchPaymentBean == null || batchPaymentBean.getTxnSubType() == null
 					|| batchPaymentBean.getTxnType() == null || batchPaymentBean.getBizType() == null) {
@@ -90,11 +103,18 @@ public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 			}
 			com.zcbspay.platform.payment.order.bean.ConcentrateBatchOrderBean cboBean = BeanCopyUtil.copyBean(
 					com.zcbspay.platform.payment.order.bean.ConcentrateBatchOrderBean.class, batchPaymentBean);
+			// 文件域赋值
+			for (com.zcbspay.platform.business.order.bean.FileContentBean fcBean : batchPaymentBean.getFileContent()) {
+				com.zcbspay.platform.payment.order.bean.ConcentrateOrderDetaBean codBean = BeanCopyUtil
+						.copyBean(com.zcbspay.platform.payment.order.bean.ConcentrateOrderDetaBean.class, fcBean);
+				codBeans.add(codBean);
+			}
+			cboBean.setDetaList(codBeans);
 			String tn = this.concentrateOrderService.createPaymentByAgencyBatchOrder(cboBean);
 			return new ResultBean(tn);
 		} catch (Exception e) {
 			e.printStackTrace();
-//			log.error(e.getMessage());
+			// log.error(e.getMessage());
 			throw new BusinessOrderException("BO0002");// 创建订单异常
 		}
 	}

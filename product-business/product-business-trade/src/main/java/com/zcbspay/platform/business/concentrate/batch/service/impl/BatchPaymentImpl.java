@@ -34,8 +34,9 @@ public class BatchPaymentImpl implements BatchPayment {
 	@Override
 	public ResultBean pay(BatchPaymentBean batchPaymentBean) {
 		List<FileContentBean> fcbs = new ArrayList<>();
+		List<com.zcbspay.platform.business.order.bean.FileContentBean> orderFcbs = new ArrayList<>();
 		ResultBean resultBean = null;
-		ContractBean contractBean  = null;
+		ContractBean contractBean = null;
 		if (batchPaymentBean == null) {
 			return new ResultBean("BP0000", "参数不能为空！");
 		}
@@ -59,12 +60,22 @@ public class BatchPaymentImpl implements BatchPayment {
 		}
 		com.zcbspay.platform.business.order.bean.BatchPaymentBean bpBean = BeanCopyUtil
 				.copyBean(com.zcbspay.platform.business.order.bean.BatchPaymentBean.class, batchPaymentBean);
-
+		
+		// filecontent 赋值
+		for (FileContentBean fileContentBean : fcbs) {
+			com.zcbspay.platform.business.order.bean.FileContentBean orderFcb = BeanCopyUtil
+					.copyBean(com.zcbspay.platform.business.order.bean.FileContentBean.class, fileContentBean);
+			orderFcbs.add(orderFcb);
+		}
+		bpBean.setFileContent(orderFcbs);
+		
+		
 		try {
 			// 创建订单，并获取tn
-			resultBean = BeanCopyUtil.copyBean(ResultBean.class, orderConcentrateService.createPaymentByAgencyBatchOrder(bpBean));
+			resultBean = BeanCopyUtil.copyBean(ResultBean.class,
+					orderConcentrateService.createPaymentByAgencyBatchOrder(bpBean));
 			String tn = (String) resultBean.getResultObj();
-			
+
 			// 支付
 			resultBean = BeanCopyUtil.copyBean(ResultBean.class, batchTrade.paymentByAgency(tn));
 			return resultBean;
@@ -74,11 +85,11 @@ public class BatchPaymentImpl implements BatchPayment {
 		} catch (ConcentrateTradeException e) {
 			e.printStackTrace();
 			return new ResultBean("BP？？？？", "支付失败！");
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResultBean("BP？？？？", "支付异常！");
 		}
-		
+
 	}
 
 }
