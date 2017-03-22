@@ -36,6 +36,7 @@ public class BatchCollectionImpl implements BatchCollection {
 	@Override
 	public ResultBean pay(BatchCollectionBean batchCollectionBean) {
 		List<FileContentBean> fcbs = new ArrayList<>();
+		List<com.zcbspay.platform.business.order.bean.FileContentBean> orderFcbs = new ArrayList<>();
 		ResultBean resultBean = null;
 		ContractBean contractBean  = null;
 		if (batchCollectionBean == null || batchCollectionBean.getFileContent() == null) {
@@ -67,6 +68,14 @@ public class BatchCollectionImpl implements BatchCollection {
 		com.zcbspay.platform.business.order.bean.BatchCollectionBean bcBean = BeanCopyUtil
 				.copyBean(com.zcbspay.platform.business.order.bean.BatchCollectionBean.class, batchCollectionBean);
 
+		// filecontent 赋值
+		for (FileContentBean fileContentBean : fcbs) {
+			com.zcbspay.platform.business.order.bean.FileContentBean orderFcb = BeanCopyUtil
+					.copyBean(com.zcbspay.platform.business.order.bean.FileContentBean.class, fileContentBean);
+			orderFcbs.add(orderFcb);
+		}
+		bcBean.setFileContent(orderFcbs);
+		
 		try {
 			// 创建订单，并获取tn
 			resultBean = BeanCopyUtil.copyBean(ResultBean.class,
