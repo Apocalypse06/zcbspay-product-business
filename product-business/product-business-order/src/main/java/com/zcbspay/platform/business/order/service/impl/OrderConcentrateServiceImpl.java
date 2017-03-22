@@ -85,7 +85,7 @@ public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 				codBeans.add(codBean);
 			}
 			cboBean.setDetaList(codBeans);
-			
+
 			String tn = this.concentrateOrderService.createCollectionChargesBatchOrder(cboBean);
 			return new ResultBean(tn);
 		} catch (Exception e) {
@@ -112,7 +112,7 @@ public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 				codBeans.add(codBean);
 			}
 			cboBean.setDetaList(codBeans);
-			
+
 			String tn = this.concentrateOrderService.createPaymentByAgencyBatchOrder(cboBean);
 			return new ResultBean(tn);
 		} catch (Exception e) {

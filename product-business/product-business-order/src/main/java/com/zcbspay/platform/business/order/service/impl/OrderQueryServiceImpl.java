@@ -32,10 +32,9 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 	@Override
 	public ResultBean queryOrderByTN(String tn) throws QueryOrderException {
 		OrderResultBean orderResultBean;
-		
+
 		try {
-			orderResultBean = BeanCopyUtil.copyBean(OrderResultBean.class,
-					queryOrderService.queryOrderByTN(tn));
+			orderResultBean = BeanCopyUtil.copyBean(OrderResultBean.class, queryOrderService.queryOrderByTN(tn));
 		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
 			e.printStackTrace();
 			return new ResultBean("BO00012", e.getMessage());
