@@ -38,6 +38,7 @@ public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 			com.zcbspay.platform.payment.order.bean.RealTimeCollectionChargesBean rtccBean = BeanCopyUtil.copyBean(
 					com.zcbspay.platform.payment.order.bean.RealTimeCollectionChargesBean.class,
 					realtimeCollectionBean);
+			rtccBean.setMerchNo(realtimeCollectionBean.getMerId());
 			String tn = this.concentrateOrderService.createCollectionChargesOrder(rtccBean);
 			return new ResultBean(tn);
 		} catch (Exception e) {
@@ -57,6 +58,7 @@ public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 			}
 			com.zcbspay.platform.payment.order.bean.RealTimepaymentByAgencyBean rtpbaBean = BeanCopyUtil.copyBean(
 					com.zcbspay.platform.payment.order.bean.RealTimepaymentByAgencyBean.class, realtimePaymentBean);
+			rtpbaBean.setMerchNo(realtimePaymentBean.getMerId());
 			String tn = this.concentrateOrderService.createPaymentByAgencyOrder(rtpbaBean);
 			return new ResultBean(tn);
 		} catch (Exception e) {
