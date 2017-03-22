@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zcbspay.platform.business.commons.utils.BeanCopyUtil;
 import com.zcbspay.platform.business.concentrate.batch.service.BatchPayment;
@@ -19,6 +20,7 @@ import com.zcbspay.platform.payment.concentrate.BatchTrade;
 import com.zcbspay.platform.payment.exception.ConcentrateTradeException;
 
 @Service("batchPaymentService")
+@Transactional
 public class BatchPaymentImpl implements BatchPayment {
 	@Autowired
 	private ContractDAO contractDAO;

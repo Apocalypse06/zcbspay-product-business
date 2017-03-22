@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zcbspay.platform.business.commons.utils.BeanCopyUtil;
 import com.zcbspay.platform.business.concentrate.batch.service.BatchCollection;
@@ -20,6 +21,7 @@ import com.zcbspay.platform.payment.concentrate.BatchTrade;
 import com.zcbspay.platform.payment.exception.ConcentrateTradeException;
 
 @Service("batchCollectionService")
+@Transactional
 public class BatchCollectionImpl implements BatchCollection {
 	@Autowired
 	private ContractDAO contractDAO;

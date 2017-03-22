@@ -2,6 +2,7 @@ package com.zcbspay.platform.business.concentrate.realtime.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zcbspay.platform.business.commons.utils.BeanCopyUtil;
 import com.zcbspay.platform.business.concentrate.bean.ContractBean;
@@ -15,6 +16,7 @@ import com.zcbspay.platform.payment.concentrate.RealTimeTrade;
 import com.zcbspay.platform.payment.exception.ConcentrateTradeException;
 
 @Service("realtimePaymentService")
+@Transactional
 public class RealtimePaymentImpl implements RealtimePayment {
 	@Autowired
 	private ContractDAO contractDAO;
