@@ -37,7 +37,7 @@ public class BatchCollectionImpl implements BatchCollection {
 	public ResultBean pay(BatchCollectionBean batchCollectionBean) {
 		List<FileContentBean> fcbs = new ArrayList<>();
 		ResultBean resultBean = null;
-
+		ContractBean contractBean  = null;
 		if (batchCollectionBean == null || batchCollectionBean.getFileContent() == null) {
 			return new ResultBean("BP0000", "参数不能为空！");
 		}
@@ -45,7 +45,13 @@ public class BatchCollectionImpl implements BatchCollection {
 		// 遍历文件域
 		fcbs = batchCollectionBean.getFileContent();
 		for (FileContentBean fcb : fcbs) {
-			ContractBean contractBean = contractDAO.queryContractByNum(fcb.getDebtorConsign());
+			try {
+				contractBean = contractDAO.queryContractByNum(fcb.getDebtorConsign());
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ResultBean("BP？？？？", "无法获取合同信息！");
+			}
+			
 			// 检查代收付账户信息是否和合同中匹配
 			if (fcb.getCreditorBank().equals(contractBean.getCreditorBranchCode())
 					&& fcb.getCreditorName().equals(contractBean.getCreditorName())

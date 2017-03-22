@@ -30,13 +30,20 @@ public class RealtimePaymentImpl implements RealtimePayment {
 	@Override
 	public ResultBean pay(RealtimePaymentBean realtimePaymentBean) {
 		ResultBean resultBean = null;
+		ContractBean contractBean  = null;
 		if (realtimePaymentBean == null) {
 			return new ResultBean("BP0000", "参数不能为空！");
 		}
 
 		// 获取合同号
 		String debtorConsign = realtimePaymentBean.getDebtorConsign();
-		ContractBean contractBean = contractDAO.queryContractByNum(debtorConsign);
+		try {
+			contractBean = contractDAO.queryContractByNum(debtorConsign);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResultBean("BP？？？？", "无法获取合同信息！");
+		}
+		
 		// 检查代收付账户信息是否和合同中匹配
 		if (realtimePaymentBean.getDebtorName().equals(contractBean.getDebtorName())
 				&& realtimePaymentBean.getDebtorAccount().equals(contractBean.getDebtorAccountNo())

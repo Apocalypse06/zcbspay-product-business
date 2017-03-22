@@ -30,13 +30,20 @@ public class RealtimeCollectionImpl implements RealtimeCollection {
 	@Override
 	public ResultBean pay(RealtimeCollectionBean realtimeCollectionBean) {
 		ResultBean resultBean = null;
+		ContractBean contractBean  = null;
 		if (realtimeCollectionBean == null) {
 			return new ResultBean("BP0000", "参数不能为空！");
 		}
 
 		// 获取合同号
 		String debtorConsign = realtimeCollectionBean.getDebtorConsign();
-		ContractBean contractBean = contractDAO.queryContractByNum(debtorConsign);
+		try {
+			contractBean = contractDAO.queryContractByNum(debtorConsign);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResultBean("BP？？？？", "无法获取合同信息！");
+		}
+		
 		// 检查代收付账户信息是否和合同中匹配
 		if (realtimeCollectionBean.getCreditorBank().equals(contractBean.getCreditorBranchCode())
 				&& realtimeCollectionBean.getCreditorName().equals(contractBean.getCreditorName())
