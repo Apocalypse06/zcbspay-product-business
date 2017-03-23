@@ -103,11 +103,11 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 			}
 			// 文件域赋值
 			batchResultBean.setFileContentList(fileContentList);
+			return new ResultBean(batchResultBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResultBean("BO00012", e.getMessage());
 		}
-		return new ResultBean(batchResultBean);
 	}
 
 	@Override
@@ -128,11 +128,11 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 			}
 			// 文件域赋值
 			batchResultBean.setFileContentList(fileContentList);
+			return new ResultBean(batchResultBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResultBean("BO00012", e.getMessage());
 		}
-		return new ResultBean(batchResultBean);
 	}
 
 }
