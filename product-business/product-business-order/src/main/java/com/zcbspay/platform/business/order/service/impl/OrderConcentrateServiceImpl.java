@@ -41,7 +41,7 @@ public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 			rtccBean.setMerchNo(realtimeCollectionBean.getMerId());
 			String tn = this.concentrateOrderService.createCollectionChargesOrder(rtccBean);
 			return new ResultBean(tn);
-		} catch (Exception e) {
+		} catch (Exception e) { 
 			e.printStackTrace();
 			// log.error(e.getMessage());
 			throw new BusinessOrderException("BO0002");// 创建订单异常
