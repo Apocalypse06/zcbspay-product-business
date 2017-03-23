@@ -1,11 +1,15 @@
 package com.zcbspay.platform.business.order.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zcbspay.platform.business.commons.utils.BeanCopyUtil;
 import com.zcbspay.platform.business.exception.QueryOrderException;
 import com.zcbspay.platform.business.order.bean.BatchResultBean;
+import com.zcbspay.platform.business.order.bean.FileContentBean;
 import com.zcbspay.platform.business.order.bean.OrderResultBean;
 import com.zcbspay.platform.business.order.bean.ResultBean;
 import com.zcbspay.platform.business.order.service.OrderQueryService;
@@ -84,9 +88,21 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 	@Override
 	public ResultBean queryConcentrateCollectionBatch(String merchNo, String batchNo, String txnDate) {
 		BatchResultBean batchResultBean;
+		com.zcbspay.platform.support.order.query.query.bean.BatchResultBean sourceBean;
+		List<FileContentBean> fileContentList = new ArrayList<>();
 		try {
-			batchResultBean = BeanCopyUtil.copyBean(BatchResultBean.class,
-					queryOrderService.queryConcentrateCollectionBatch(merchNo, batchNo, txnDate));
+			// 获取查询结果
+			sourceBean = queryOrderService.queryConcentrateCollectionBatch(merchNo, batchNo, txnDate);
+			// 复制属性值
+			batchResultBean = BeanCopyUtil.copyBean(BatchResultBean.class, sourceBean);
+
+			// BatchResultBean中的List<FileContentBean>进行复制
+			for (com.zcbspay.platform.support.order.query.query.bean.FileContentBean fileContentBean : sourceBean
+					.getFileContentList()) {
+				fileContentList.add(BeanCopyUtil.copyBean(FileContentBean.class, fileContentBean));
+			}
+			// 文件域赋值
+			batchResultBean.setFileContentList(fileContentList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResultBean("BO00012", e.getMessage());
@@ -97,9 +113,21 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 	@Override
 	public ResultBean queryConcentratePaymentBatch(String merchNo, String batchNo, String txnDate) {
 		BatchResultBean batchResultBean;
+		com.zcbspay.platform.support.order.query.query.bean.BatchResultBean sourceBean;
+		List<FileContentBean> fileContentList = new ArrayList<>();
 		try {
-			batchResultBean = BeanCopyUtil.copyBean(BatchResultBean.class,
-					queryOrderService.queryConcentratePaymentBatch(merchNo, batchNo, txnDate));
+			// 获取查询结果
+			sourceBean = queryOrderService.queryConcentratePaymentBatch(merchNo, batchNo, txnDate);
+			// 复制属性值
+			batchResultBean = BeanCopyUtil.copyBean(BatchResultBean.class, sourceBean);
+
+			// BatchResultBean中的List<FileContentBean>进行复制
+			for (com.zcbspay.platform.support.order.query.query.bean.FileContentBean fileContentBean : sourceBean
+					.getFileContentList()) {
+				fileContentList.add(BeanCopyUtil.copyBean(FileContentBean.class, fileContentBean));
+			}
+			// 文件域赋值
+			batchResultBean.setFileContentList(fileContentList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResultBean("BO00012", e.getMessage());
