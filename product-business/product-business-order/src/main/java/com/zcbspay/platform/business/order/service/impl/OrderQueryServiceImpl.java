@@ -29,6 +29,9 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
 			e.printStackTrace();
 			return new ResultBean("BO00012", e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResultBean("BP0001", "订单查询异常");
 		}
 		return new ResultBean(orderResultBean);
 	}
@@ -42,6 +45,9 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
 			e.printStackTrace();
 			return new ResultBean("BO00012", e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResultBean("BP0001", "订单查询异常");
 		}
 		return new ResultBean(orderResultBean);
 	}
@@ -55,6 +61,9 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
 			e.printStackTrace();
 			return new ResultBean("BO00012", e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResultBean("BP0001", "订单查询异常");
 		}
 		return new ResultBean(orderResultBean);
 	}
@@ -68,6 +77,9 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
 			e.printStackTrace();
 			return new ResultBean("BO00012", e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResultBean("BP0001", "订单查询异常");
 		}
 		return new ResultBean(orderResultBean);
 	}
@@ -81,6 +93,9 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
 			e.printStackTrace();
 			return new ResultBean("BO00012", e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResultBean("BP0001", "订单查询异常");
 		}
 		return new ResultBean(orderResultBean);
 	}
