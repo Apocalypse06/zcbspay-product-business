@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zcbspay.platform.business.commons.utils.BeanCopyUtil;
 import com.zcbspay.platform.business.exception.QueryOrderException;
@@ -15,6 +16,7 @@ import com.zcbspay.platform.business.order.bean.ResultBean;
 import com.zcbspay.platform.business.order.service.OrderQueryService;
 
 @Service("orderQueryService")
+@Transactional
 public class OrderQueryServiceImpl implements OrderQueryService {
 
 	@Autowired

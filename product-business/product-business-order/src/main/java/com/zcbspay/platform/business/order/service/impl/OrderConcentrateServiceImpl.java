@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zcbspay.platform.business.commons.utils.BeanCopyUtil;
 import com.zcbspay.platform.business.exception.BusinessOrderException;
@@ -17,6 +18,7 @@ import com.zcbspay.platform.business.order.bean.ResultBean;
 import com.zcbspay.platform.business.order.service.OrderConcentrateService;
 
 @Service("orderConcentrateService")
+@Transactional
 public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 
 	// private static final Logger log =
