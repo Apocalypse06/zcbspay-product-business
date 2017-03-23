@@ -83,28 +83,22 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 
 	@Override
 	public ResultBean queryConcentrateCollectionBatch(String merchNo, String batchNo, String txnDate) {
-		BatchResultBean batchResultBean;
 		try {
-			batchResultBean = BeanCopyUtil.copyBean(BatchResultBean.class,
-					queryOrderService.queryConcentrateCollectionBatch(merchNo, batchNo, txnDate));
+			return new ResultBean(queryOrderService.queryConcentrateCollectionBatch(merchNo, batchNo, txnDate));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResultBean("BO00012", e.getMessage());
 		}
-		return new ResultBean(batchResultBean);
 	}
 
 	@Override
 	public ResultBean queryConcentratePaymentBatch(String merchNo, String batchNo, String txnDate) {
-		BatchResultBean batchResultBean;
 		try {
-			batchResultBean = BeanCopyUtil.copyBean(BatchResultBean.class,
-					queryOrderService.queryConcentratePaymentBatch(merchNo, batchNo, txnDate));
+			return new ResultBean(queryOrderService.queryConcentratePaymentBatch(merchNo, batchNo, txnDate));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResultBean("BO00012", e.getMessage());
 		}
-		return new ResultBean(batchResultBean);
 	}
 
 }
