@@ -35,7 +35,6 @@ public class BatchPaymentImpl implements BatchPayment {
 	public ResultBean pay(BatchPaymentBean batchPaymentBean) {
 		List<FileContentBean> fcbs = new ArrayList<>();
 		List<com.zcbspay.platform.business.order.bean.FileContentBean> orderFcbs = new ArrayList<>();
-		ResultBean resultBean = null;
 		ContractBean contractBean = null;
 		if (batchPaymentBean == null) {
 			return new ResultBean("BP0000", "参数不能为空！");
@@ -72,13 +71,12 @@ public class BatchPaymentImpl implements BatchPayment {
 		
 		try {
 			// 创建订单，并获取tn
-			resultBean = BeanCopyUtil.copyBean(ResultBean.class,
-					orderConcentrateService.createPaymentByAgencyBatchOrder(bpBean));
-			String tn = (String) resultBean.getResultObj();
+			String tn = (String) orderConcentrateService.createPaymentByAgencyBatchOrder(bpBean).getResultObj();
 
 			// 支付
-			resultBean = BeanCopyUtil.copyBean(ResultBean.class, batchTrade.paymentByAgency(tn));
-			return resultBean;
+			batchTrade.paymentByAgency(tn);
+			
+			return new ResultBean(tn);
 		} catch (BusinessOrderException e) {
 			e.printStackTrace();
 			return new ResultBean("BP？？？？", "创建订单失败！");

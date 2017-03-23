@@ -29,7 +29,6 @@ public class RealtimeCollectionImpl implements RealtimeCollection {
 
 	@Override
 	public ResultBean pay(RealtimeCollectionBean realtimeCollectionBean) {
-		ResultBean resultBean = null;
 		ContractBean contractBean  = null;
 		if (realtimeCollectionBean == null) {
 			return new ResultBean("BP0000", "参数不能为空！");
@@ -56,13 +55,12 @@ public class RealtimeCollectionImpl implements RealtimeCollection {
 					com.zcbspay.platform.business.order.bean.RealtimeCollectionBean.class, realtimeCollectionBean);
 			try {
 				// 创建订单，并获取tn
-				resultBean = BeanCopyUtil.copyBean(ResultBean.class,
-						orderConcentrateService.createCollectionChargesOrder(rtccBean));
-				String tn = (String) resultBean.getResultObj();
+				String tn = (String) orderConcentrateService.createCollectionChargesOrder(rtccBean).getResultObj();
 				
 				// 支付
-				resultBean = BeanCopyUtil.copyBean(ResultBean.class,realTimeTrade.collectionCharges(tn));
-				return resultBean;
+				realTimeTrade.collectionCharges(tn);
+				
+				return new ResultBean(tn);
 			} catch (BusinessOrderException e) {
 				e.printStackTrace();
 				return new ResultBean("BP？？？？", "创建订单失败！");

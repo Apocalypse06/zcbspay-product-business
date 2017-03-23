@@ -37,7 +37,6 @@ public class BatchCollectionImpl implements BatchCollection {
 	public ResultBean pay(BatchCollectionBean batchCollectionBean) {
 		List<FileContentBean> fcbs = new ArrayList<>();
 		List<com.zcbspay.platform.business.order.bean.FileContentBean> orderFcbs = new ArrayList<>();
-		ResultBean resultBean = null;
 		ContractBean contractBean  = null;
 		if (batchCollectionBean == null || batchCollectionBean.getFileContent() == null) {
 			return new ResultBean("BP0000", "参数不能为空！");
@@ -78,13 +77,11 @@ public class BatchCollectionImpl implements BatchCollection {
 		
 		try {
 			// 创建订单，并获取tn
-			resultBean = BeanCopyUtil.copyBean(ResultBean.class,
-					orderConcentrateService.createCollectionChargesBatchOrder(bcBean));
-			String tn = (String) resultBean.getResultObj();
-			
+			String tn =(String) orderConcentrateService.createCollectionChargesBatchOrder(bcBean).getResultObj();
 			// 支付
-			resultBean = BeanCopyUtil.copyBean(ResultBean.class, batchTrade.collectionCharges(tn));
-			return resultBean;
+			batchTrade.collectionCharges(tn);
+			
+			return new ResultBean(tn);
 		} catch (BusinessOrderException e) {
 			e.printStackTrace();
 			return new ResultBean("BP？？？？", "创建订单失败！");

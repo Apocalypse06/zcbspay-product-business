@@ -54,13 +54,12 @@ public class RealtimePaymentImpl implements RealtimePayment {
 
 			try {
 				// 创建订单，并获取tn
-				resultBean = BeanCopyUtil.copyBean(ResultBean.class,
-						orderConcentrateService.createPaymentByAgencyOrder(rtpBean));
-				String tn = (String) resultBean.getResultObj();
+				String tn = (String) orderConcentrateService.createPaymentByAgencyOrder(rtpBean).getResultObj();
 
 				// 支付
-				resultBean = BeanCopyUtil.copyBean(ResultBean.class, realTimeTrade.paymentByAgency(tn));
-				return resultBean;
+				realTimeTrade.paymentByAgency(tn);
+				
+				return new ResultBean(tn);
 			} catch (BusinessOrderException e) {
 				e.printStackTrace();
 				return new ResultBean("BP？？？？", "创建订单失败！");
