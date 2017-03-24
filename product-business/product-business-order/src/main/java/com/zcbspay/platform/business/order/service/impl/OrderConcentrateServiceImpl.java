@@ -3,6 +3,8 @@ package com.zcbspay.platform.business.order.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -21,38 +23,35 @@ import com.zcbspay.platform.business.order.service.OrderConcentrateService;
 @Transactional
 public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 
-	// private static final Logger log =
-	// LoggerFactory.getLogger(ConcentrateOrderServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(OrderConcentrateServiceImpl.class);
 
 	@Autowired
 	@Qualifier("concentrateOrderService")
 	private com.zcbspay.platform.payment.order.service.ConcentrateOrderService concentrateOrderService;
 
 	@Override
-	public ResultBean createCollectionChargesOrder(RealtimeCollectionBean realtimeCollectionBean)
-			throws BusinessOrderException {
+	public ResultBean createCollectionChargesOrder(RealtimeCollectionBean realtimeCollectionBean) {
 
 		try {
-			if (realtimeCollectionBean == null || realtimeCollectionBean.getTxnSubType() == null
-					|| realtimeCollectionBean.getTxnType() == null || realtimeCollectionBean.getBizType() == null) {
-				throw new BusinessOrderException("BO0000");
-			}
 			com.zcbspay.platform.payment.order.bean.RealTimeCollectionChargesBean rtccBean = BeanCopyUtil.copyBean(
 					com.zcbspay.platform.payment.order.bean.RealTimeCollectionChargesBean.class,
 					realtimeCollectionBean);
 			rtccBean.setMerchNo(realtimeCollectionBean.getMerId());
 			String tn = this.concentrateOrderService.createCollectionChargesOrder(rtccBean);
 			return new ResultBean(tn);
-		} catch (Exception e) { 
+		} catch (com.zcbspay.platform.payment.exception.PaymentOrderException e) {
 			e.printStackTrace();
-			// log.error(e.getMessage());
-			throw new BusinessOrderException("BO0002");// 创建订单异常
+			logger.info(e.getMessage());
+			return new ResultBean(e.getCode(), e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("创建实时代收订单服务异常");
+			return new ResultBean("PC013", "订单服务异常!");
 		}
 	}
 
 	@Override
-	public ResultBean createPaymentByAgencyOrder(RealtimePaymentBean realtimePaymentBean)
-			throws BusinessOrderException {
+	public ResultBean createPaymentByAgencyOrder(RealtimePaymentBean realtimePaymentBean) {
 		try {
 			if (realtimePaymentBean == null || realtimePaymentBean.getTxnSubType() == null
 					|| realtimePaymentBean.getTxnType() == null || realtimePaymentBean.getBizType() == null) {
@@ -63,16 +62,19 @@ public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 			rtpbaBean.setMerchNo(realtimePaymentBean.getMerId());
 			String tn = this.concentrateOrderService.createPaymentByAgencyOrder(rtpbaBean);
 			return new ResultBean(tn);
+		} catch (com.zcbspay.platform.payment.exception.PaymentOrderException e) {
+			e.printStackTrace();
+			logger.info(e.getMessage());
+			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
-			// log.error(e.getMessage());
-			throw new BusinessOrderException("BO0002");// 创建订单异常
+			logger.error("创建实时代付订单服务异常");
+			return new ResultBean("PC013", "订单服务异常!");
 		}
 	}
 
 	@Override
-	public ResultBean createCollectionChargesBatchOrder(BatchCollectionBean batchCollectionBean)
-			throws BusinessOrderException {
+	public ResultBean createCollectionChargesBatchOrder(BatchCollectionBean batchCollectionBean) {
 		List<com.zcbspay.platform.payment.order.bean.ConcentrateOrderDetaBean> codBeans = new ArrayList<>();
 		try {
 			if (batchCollectionBean == null || batchCollectionBean.getTxnSubType() == null
@@ -92,15 +94,19 @@ public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 
 			String tn = this.concentrateOrderService.createCollectionChargesBatchOrder(cboBean);
 			return new ResultBean(tn);
+		} catch (com.zcbspay.platform.payment.exception.PaymentOrderException e) {
+			e.printStackTrace();
+			logger.info(e.getMessage());
+			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
-			// log.error(e.getMessage());
-			throw new BusinessOrderException("BO0002");// 创建订单异常
+			logger.error("创建批量代收订单服务异常");
+			return new ResultBean("PC013", "订单服务异常!");
 		}
 	}
 
 	@Override
-	public ResultBean createPaymentByAgencyBatchOrder(BatchPaymentBean batchPaymentBean) throws BusinessOrderException {
+	public ResultBean createPaymentByAgencyBatchOrder(BatchPaymentBean batchPaymentBean) {
 		List<com.zcbspay.platform.payment.order.bean.ConcentrateOrderDetaBean> codBeans = new ArrayList<>();
 		try {
 			if (batchPaymentBean == null || batchPaymentBean.getTxnSubType() == null
@@ -119,10 +125,14 @@ public class OrderConcentrateServiceImpl implements OrderConcentrateService {
 
 			String tn = this.concentrateOrderService.createPaymentByAgencyBatchOrder(cboBean);
 			return new ResultBean(tn);
+		} catch (com.zcbspay.platform.payment.exception.PaymentOrderException e) {
+			e.printStackTrace();
+			logger.info(e.getMessage());
+			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
-			// log.error(e.getMessage());
-			throw new BusinessOrderException("BO0002");// 创建订单异常
+			logger.error("创建批量代付订单服务异常");
+			return new ResultBean("PC013", "订单服务异常!");
 		}
 	}
 }
