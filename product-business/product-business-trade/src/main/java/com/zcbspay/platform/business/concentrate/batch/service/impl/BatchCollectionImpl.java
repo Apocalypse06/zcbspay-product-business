@@ -17,7 +17,6 @@ import com.zcbspay.platform.business.concentrate.bean.ContractBean;
 import com.zcbspay.platform.business.concentrate.bean.FileContentBean;
 import com.zcbspay.platform.business.concentrate.bean.ResultBean;
 import com.zcbspay.platform.business.concentrate.contract.dao.ContractDAO;
-import com.zcbspay.platform.business.exception.BusinessOrderException;
 import com.zcbspay.platform.business.order.service.OrderConcentrateService;
 import com.zcbspay.platform.payment.concentrate.BatchTrade;
 import com.zcbspay.platform.payment.exception.ConcentrateTradeException;

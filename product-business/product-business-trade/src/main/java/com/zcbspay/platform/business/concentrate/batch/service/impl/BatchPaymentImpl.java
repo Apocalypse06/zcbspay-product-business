@@ -16,8 +16,6 @@ import com.zcbspay.platform.business.concentrate.bean.ContractBean;
 import com.zcbspay.platform.business.concentrate.bean.FileContentBean;
 import com.zcbspay.platform.business.concentrate.bean.ResultBean;
 import com.zcbspay.platform.business.concentrate.contract.dao.ContractDAO;
-import com.zcbspay.platform.business.concentrate.realtime.service.impl.RealtimeCollectionImpl;
-import com.zcbspay.platform.business.exception.BusinessOrderException;
 import com.zcbspay.platform.business.order.service.OrderConcentrateService;
 import com.zcbspay.platform.payment.concentrate.BatchTrade;
 import com.zcbspay.platform.payment.exception.ConcentrateTradeException;
@@ -52,7 +50,10 @@ public class BatchPaymentImpl implements BatchPayment {
 				return new ResultBean("BC0002", "无法获取合同信息！");
 			}
 			// 检查代收付账户信息是否和合同中匹配
-			if (fcb.getDebtorName().equals(contractBean.getDebtorName())
+			if (fcb.getCreditorBank().equals(contractBean.getCreditorBranchCode())
+					&& fcb.getCreditorName().equals(contractBean.getCreditorName())
+					&& fcb.getCreditorAccount().equals(contractBean.getCreditorAccountNo())
+					&& fcb.getDebtorName().equals(contractBean.getDebtorName())
 					&& fcb.getDebtorAccount().equals(contractBean.getDebtorAccountNo())
 					&& fcb.getDebtorBank().equals(contractBean.getDebtorBranchCode())) {
 			} else {

@@ -51,7 +51,10 @@ public class RealtimePaymentImpl implements RealtimePayment {
 		}
 
 		// 检查代收付账户信息是否和合同中匹配
-		if (realtimePaymentBean.getDebtorName().equals(contractBean.getDebtorName())
+		if (realtimePaymentBean.getCreditorBank().equals(contractBean.getCreditorBranchCode())
+				&& realtimePaymentBean.getCreditorName().equals(contractBean.getCreditorName())
+				&& realtimePaymentBean.getCreditorAccount().equals(contractBean.getCreditorAccountNo())
+				&& realtimePaymentBean.getDebtorName().equals(contractBean.getDebtorName())
 				&& realtimePaymentBean.getDebtorAccount().equals(contractBean.getDebtorAccountNo())
 				&& realtimePaymentBean.getDebtorBank().equals(contractBean.getDebtorBranchCode())) {
 
