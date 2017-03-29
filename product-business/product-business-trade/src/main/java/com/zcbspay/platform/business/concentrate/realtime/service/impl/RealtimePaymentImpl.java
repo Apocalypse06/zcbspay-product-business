@@ -1,6 +1,5 @@
 package com.zcbspay.platform.business.concentrate.realtime.service.impl;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import com.zcbspay.platform.business.concentrate.bean.ContractBean;
 import com.zcbspay.platform.business.concentrate.bean.RealtimePaymentBean;
 import com.zcbspay.platform.business.concentrate.bean.ResultBean;
 import com.zcbspay.platform.business.concentrate.contract.dao.ContractDAO;
+import com.zcbspay.platform.business.concentrate.enums.ContractTypeEnum;
 import com.zcbspay.platform.business.concentrate.realtime.service.RealtimePayment;
 import com.zcbspay.platform.business.order.service.OrderConcentrateService;
 import com.zcbspay.platform.payment.concentrate.RealTimeTrade;
@@ -32,63 +32,50 @@ public class RealtimePaymentImpl implements RealtimePayment {
 
 	@Override
 	public ResultBean pay(RealtimePaymentBean realtimePaymentBean) {
-		ContractBean contractBean = null;
-
-		// 获取合同号
-		String debtorConsign = realtimePaymentBean.getDebtorConsign();
-		if (StringUtils.isBlank(debtorConsign)) {
-			return new ResultBean("BC0000", "合同号不能为空！");
-		}
-
+		// 合同信息校验
 		try {
-			contractBean = contractDAO.queryContractByNum(debtorConsign);
-			if (contractBean == null) {
-				return new ResultBean("BC0001", "合同信息不存在！");
+			String rsp[] = contractDAO
+					.checkContract(realtimePaymentBean.getDebtorConsign(), realtimePaymentBean.getMerId(),
+							realtimePaymentBean.getDebtorName(), realtimePaymentBean.getDebtorAccount(),
+							realtimePaymentBean.getCreditorName(), realtimePaymentBean.getCreditorAccount(),
+							ContractTypeEnum.PAYMENT.getCode(), realtimePaymentBean.getTxnAmt())
+					.split(",");
+			if (!rsp[0].trim().equals("CT00")) {
+				logger.info(rsp[1].trim());
+				return new ResultBean(rsp[0].trim(), rsp[1].trim());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResultBean("BC0002", "无法获取合同信息！");
+			logger.info("合同校验异常！");
+			return new ResultBean("BC001", "合同信息校验失败！");
 		}
 
-		// 检查代收付账户信息是否和合同中匹配
-		if (realtimePaymentBean.getCreditorBank().equals(contractBean.getCreditorBranchCode())
-				&& realtimePaymentBean.getCreditorName().equals(contractBean.getCreditorName())
-				&& realtimePaymentBean.getCreditorAccount().equals(contractBean.getCreditorAccountNo())
-				&& realtimePaymentBean.getDebtorName().equals(contractBean.getDebtorName())
-				&& realtimePaymentBean.getDebtorAccount().equals(contractBean.getDebtorAccountNo())
-				&& realtimePaymentBean.getDebtorBank().equals(contractBean.getDebtorBranchCode())) {
-
+		try {
 			com.zcbspay.platform.business.order.bean.RealtimePaymentBean rtpBean = BeanCopyUtil
 					.copyBean(com.zcbspay.platform.business.order.bean.RealtimePaymentBean.class, realtimePaymentBean);
 
-			try {
-				// 创建订单，并获取结果
-				com.zcbspay.platform.business.order.bean.ResultBean resultBean = orderConcentrateService
-						.createPaymentByAgencyOrder(rtpBean);
+			// 创建订单，并获取结果
+			com.zcbspay.platform.business.order.bean.ResultBean resultBean = orderConcentrateService
+					.createPaymentByAgencyOrder(rtpBean);
 
-				if (resultBean.isResultBool()) {
-					String tn = (String) resultBean.getResultObj();
+			if (resultBean.isResultBool()) {
+				String tn = (String) resultBean.getResultObj();
 
-					// 支付
-					realTimeTrade.paymentByAgency(tn);
+				// 支付
+				realTimeTrade.paymentByAgency(tn);
 
-					return new ResultBean(tn);
-				} else {
-					return new ResultBean(resultBean.getErrCode(), resultBean.getErrMsg());
-				}
-			} catch (ConcentrateTradeException e) {
-				e.printStackTrace();
-				logger.info(e.getMessage());
-				return new ResultBean(e.getCode(), e.getMessage());
-			} catch (Exception e) {
-				e.printStackTrace();
-				logger.info("实时代付异常！");
-				return new ResultBean("BP004", "实时代付异常！");
+				return new ResultBean(tn);
+			} else {
+				return new ResultBean(resultBean.getErrCode(), resultBean.getErrMsg());
 			}
-
-		} else {
-			return new ResultBean("BC0003", "合同信息有误！");
+		} catch (ConcentrateTradeException e) {
+			e.printStackTrace();
+			logger.info(e.getMessage());
+			return new ResultBean(e.getCode(), e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info("实时代付异常！");
+			return new ResultBean("BP004", "实时代付异常！");
 		}
 	}
-
 }

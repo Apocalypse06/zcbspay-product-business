@@ -15,9 +15,17 @@ public class ContractDAOImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 
 	@Override
 	public ContractBean queryContractByNum(String debtorConsign) {
-		Criteria criteria =this.getSession().createCriteria(PojoContract.class);
+		Criteria criteria = this.getSession().createCriteria(PojoContract.class);
 		criteria.add(Restrictions.eq("contractNum", debtorConsign));
 		Object uniqueResult = criteria.uniqueResult();
 		return BeanCopyUtil.copyBean(ContractBean.class, uniqueResult);
+	}
+
+	public String checkContract(String contractnum, String merchno, String debtorname, String debtoraccountno,
+			String creditorname, String creditoraccountno, String contracttype, String amount) {
+		String sql = "SELECT fnc_getcontract(?,?,?,?,?,?,?,?) FROM	dual;";
+		Object paramaters[] = { contractnum, merchno, debtorname, debtoraccountno, creditorname, creditoraccountno,
+				contracttype, amount };
+		return (String) this.queryBySQL(sql, paramaters).get(0);
 	}
 }
