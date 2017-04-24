@@ -13,10 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zcbspay.platform.business.commons.utils.BeanCopyUtil;
 import com.zcbspay.platform.business.concentrate.batch.service.BatchCollection;
 import com.zcbspay.platform.business.concentrate.bean.BatchCollectionBean;
-import com.zcbspay.platform.business.concentrate.bean.ContractBean;
 import com.zcbspay.platform.business.concentrate.bean.FileContentBean;
 import com.zcbspay.platform.business.concentrate.bean.ResultBean;
 import com.zcbspay.platform.business.concentrate.contract.dao.ContractDAO;
+import com.zcbspay.platform.business.concentrate.enums.ContractTypeEnum;
 import com.zcbspay.platform.business.order.service.OrderConcentrateService;
 import com.zcbspay.platform.payment.concentrate.BatchTrade;
 import com.zcbspay.platform.payment.exception.ConcentrateTradeException;
@@ -39,28 +39,28 @@ public class BatchCollectionImpl implements BatchCollection {
 	public ResultBean pay(BatchCollectionBean batchCollectionBean) {
 		List<FileContentBean> fcbs = new ArrayList<>();
 		List<com.zcbspay.platform.business.order.bean.FileContentBean> orderFcbs = new ArrayList<>();
-		ContractBean contractBean = null;
+		StringBuffer exInfo = new StringBuffer();
+		boolean flag = false; // 合同信息是否有异常：false-无，true-有
 
-		// 遍历文件域
-		fcbs = batchCollectionBean.getFileContent();
-		for (FileContentBean fcb : fcbs) {
-			try {
-				contractBean = contractDAO.queryContractByNum(fcb.getDebtorConsign());
-			} catch (Exception e) {
-				e.printStackTrace();
-				return new ResultBean("BC0002", "无法获取合同信息！");
+		// 合同信息校验
+		try {
+			for (FileContentBean fcb : batchCollectionBean.getFileContent()) {
+				String rsp[] = contractDAO.checkContract(fcb.getDebtorConsign(), batchCollectionBean.getMerId(),
+						fcb.getDebtorName(), fcb.getDebtorAccount(), fcb.getCreditorName(), fcb.getCreditorAccount(),
+						ContractTypeEnum.COLLECTION.getCode(), fcb.getAmt()).split(",");
+				if (!rsp[0].trim().equals("CT00")) {
+					flag = true;
+					logger.info("商户订单号为 " + fcb.getOrderId() + " 的" + rsp[1].trim());
+					exInfo.append("商户订单号为" + fcb.getOrderId() + "的" + rsp[1].trim() + ",");
+				}
 			}
-
-			// 检查代收付账户信息是否和合同中匹配
-			if (fcb.getCreditorBank().equals(contractBean.getCreditorBranchCode())
-					&& fcb.getCreditorName().equals(contractBean.getCreditorName())
-					&& fcb.getCreditorAccount().equals(contractBean.getCreditorAccountNo())
-					&& fcb.getDebtorName().equals(contractBean.getDebtorName())
-					&& fcb.getDebtorAccount().equals(contractBean.getDebtorAccountNo())
-					&& fcb.getDebtorBank().equals(contractBean.getDebtorBranchCode())) {
-			} else {
-				return new ResultBean("BC0003", "合同信息有误！");
+			if (flag) {
+				return new ResultBean("BC002", exInfo.deleteCharAt(exInfo.length() - 1).toString());
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info("合同校验异常！");
+			return new ResultBean("BC001", "合同信息校验失败！");
 		}
 
 		com.zcbspay.platform.business.order.bean.BatchCollectionBean bcBean = BeanCopyUtil
@@ -78,7 +78,7 @@ public class BatchCollectionImpl implements BatchCollection {
 			// 创建订单，并获取结果
 			com.zcbspay.platform.business.order.bean.ResultBean resultBean = orderConcentrateService
 					.createCollectionChargesBatchOrder(bcBean);
-			
+
 			if (resultBean.isResultBool()) {
 				String tn = (String) resultBean.getResultObj();
 
@@ -92,7 +92,7 @@ public class BatchCollectionImpl implements BatchCollection {
 		} catch (ConcentrateTradeException e) {
 			e.printStackTrace();
 			logger.info(e.getMessage());
-			return new ResultBean(e.getCode(),e.getMessage());
+			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.info("批量代收异常！");

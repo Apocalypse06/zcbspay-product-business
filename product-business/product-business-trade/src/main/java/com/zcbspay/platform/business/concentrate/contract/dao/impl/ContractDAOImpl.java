@@ -1,5 +1,7 @@
 package com.zcbspay.platform.business.concentrate.contract.dao.impl;
 
+import java.util.Map;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -23,9 +25,11 @@ public class ContractDAOImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 
 	public String checkContract(String contractnum, String merchno, String debtorname, String debtoraccountno,
 			String creditorname, String creditoraccountno, String contracttype, String amount) {
-		String sql = "SELECT fnc_getcontract(?,?,?,?,?,?,?,?) FROM	dual;";
+		String sql = "SELECT fnc_getcontract(?,?,?,?,?,?,?,?) AS RSP FROM dual";
 		Object paramaters[] = { contractnum, merchno, debtorname, debtoraccountno, creditorname, creditoraccountno,
 				contracttype, amount };
-		return (String) this.queryBySQL(sql, paramaters).get(0);
+		@SuppressWarnings("unchecked")
+		Map<String, Object> rsp = (Map<String, Object>) this.queryBySQL(sql, paramaters).get(0);
+		return rsp.get("RSP").toString();
 	}
 }

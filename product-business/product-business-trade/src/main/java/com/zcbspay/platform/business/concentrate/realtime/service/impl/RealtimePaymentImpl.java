@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zcbspay.platform.business.commons.utils.BeanCopyUtil;
-import com.zcbspay.platform.business.concentrate.bean.ContractBean;
 import com.zcbspay.platform.business.concentrate.bean.RealtimePaymentBean;
 import com.zcbspay.platform.business.concentrate.bean.ResultBean;
 import com.zcbspay.platform.business.concentrate.contract.dao.ContractDAO;
