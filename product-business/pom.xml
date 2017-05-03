@@ -280,5 +280,9 @@
     <module>product-business-order-simple</module>
     <module>product-business-order-service</module>
     <module>product-business-trade-service</module>
+    <module>product-business-api-auth-api</module>
+    <module>product-business-api-auth</module>
+    <module>product-business-api-auth-simple</module>
+    <module>product-business-api-auth-test</module>
 	</modules>
 </project>
