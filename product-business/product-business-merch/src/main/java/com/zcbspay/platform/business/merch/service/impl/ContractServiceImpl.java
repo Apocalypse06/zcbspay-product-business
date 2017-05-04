@@ -14,12 +14,12 @@ import com.zcbspay.platform.business.merch.bean.BatchImportFileContent;
 import com.zcbspay.platform.business.merch.bean.BatchImportReqBean;
 import com.zcbspay.platform.business.merch.bean.ContractQueryFileContent;
 import com.zcbspay.platform.business.merch.bean.ResultBean;
-import com.zcbspay.platform.business.merch.service.ContractService;
+import com.zcbspay.platform.business.merch.service.ContractBizService;
 import com.zcbspay.platform.manager.merchant.bean.ContractBean;
 
-@Service("contractService")
+@Service("contractBizService")
 @Transactional
-public class ContractServiceImpl implements ContractService {
+public class ContractServiceImpl implements ContractBizService {
 	private static final Logger logger = LoggerFactory.getLogger(ContractServiceImpl.class);
 
 	@Autowired
