@@ -284,5 +284,7 @@
     <module>product-business-api-auth</module>
     <module>product-business-api-auth-simple</module>
     <module>product-business-api-auth-test</module>
+    <module>product-business-merch-simple</module>
+    <module>product-business-merch-service</module>
 	</modules>
 </project>

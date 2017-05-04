@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	
+	<!-- 合同服务：导入、查询…… -->
+	<dubbo:service interface="com.zcbspay.platform.business.merch.service.ContractBizService" ref=contractBizService retries="0" version="1.0" timeout="60000"/>
+	
+	<!-- 调取服务 -->
+	<dubbo:reference id="contractService" interface="com.zcbspay.platform.manager.merchant.service.ContractService" retries="10" version="1.0"/>
+</beans>

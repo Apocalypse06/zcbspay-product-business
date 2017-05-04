@@ -3,7 +3,7 @@ package com.zcbspay.platform.business.merch.service;
 import com.zcbspay.platform.business.merch.bean.BatchImportReqBean;
 import com.zcbspay.platform.business.merch.bean.ResultBean;
 
-public interface ContractService {
+public interface ContractBizService {
 	/**
 	 * 查询合同详情
 	 * @param contractNum 合同编号
