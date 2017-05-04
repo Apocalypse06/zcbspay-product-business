@@ -76,6 +76,7 @@ public class ContractServiceImpl implements ContractBizService {
 			ContractBean contractBean = new ContractBean();
 			try {
 				contractBean.setMerchNo(batchImportReqBean.getMerId());
+				contractBean.setInUser(Long.valueOf(3));
 				contractBean.setContractNum(bifc.getContractnum());
 				contractBean.setContractType(bifc.getContracttype());
 				contractBean.setDebName(bifc.getDebtorname());
@@ -112,11 +113,11 @@ public class ContractServiceImpl implements ContractBizService {
 				return new ResultBean("BC004", "合同服务异常!");
 			}
 			
-			String ret = result.get("ret").toString();
+			String ret = result.get("RET").toString();
 			if (!ret.equals("succ")) {
 				flag = false;
-				logger.info("合同编号为 " + bifc.getContractnum() + " 的" + result.get("info").toString());
-				exInfo.append("合同编号为" + bifc.getContractnum() + " 的" + result.get("info").toString() + ",");
+				logger.info("合同编号为 " + bifc.getContractnum() + " 的" + result.get("INFO").toString());
+				exInfo.append("合同编号为" + bifc.getContractnum() + " 的" + result.get("INFO").toString() + ",");
 			}
 		}
 		
