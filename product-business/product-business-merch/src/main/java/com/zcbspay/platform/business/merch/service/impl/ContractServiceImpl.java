@@ -76,23 +76,22 @@ public class ContractServiceImpl implements ContractService {
 			ContractBean contractBean = new ContractBean();
 			try {
 				contractBean.setMerchNo(batchImportReqBean.getMerId());
-				contractBean.setBatchNo(batchImportReqBean.getBatchNo());
 				contractBean.setContractNum(bifc.getContractnum());
 				contractBean.setContractType(bifc.getContracttype());
 				contractBean.setDebName(bifc.getDebtorname());
 				contractBean.setDebAccNo(bifc.getDebtoraccountno());
 				contractBean.setDebBranchCode(bifc.getDebtorbranchcode());
-				contractBean.setDebAmoLimit(Long.valueOf(bifc.getDebtoramountlimit()));
+				contractBean.setDebAmoLimit(bifc.getDebtoramountlimit());
 				contractBean.setDebTransLimitType(bifc.getDebtortransamtlimittype());
-				contractBean.setDebAccyAmoLimit(Long.valueOf(bifc.getDebtoraccuamountlimit()));
+				contractBean.setDebAccyAmoLimit(bifc.getDebtoraccuamountlimit());
 				contractBean.setDebTransLimitType(bifc.getDebtortransnumlimittype());
 				contractBean.setDebTransLimit(Long.valueOf(bifc.getDebtortranslimit()));
 				contractBean.setCredName(bifc.getCreditorname());
 				contractBean.setCredAccNo(bifc.getCreditoraccountno());
 				contractBean.setCredBranchCode(bifc.getCreditoramountlimit());
-				contractBean.setCredAmoLimit(Long.valueOf(bifc.getCreditoramountlimit()));
+				contractBean.setCredAmoLimit(bifc.getCreditoramountlimit());
 				contractBean.setCredTranLimitType(bifc.getCreditortransamtlimittype());
-				contractBean.setCredAccuAmoLimit(Long.valueOf(bifc.getCreditoraccuamountlimit()));
+				contractBean.setCredAccuAmoLimit(bifc.getCreditoraccuamountlimit());
 				contractBean.setCredTransLimitType(bifc.getCreditortransnumlimittype());
 				contractBean.setCredTransLimit(Long.valueOf(bifc.getCreditortranslimit()));
 				contractBean.setSignDate(bifc.getSigndate());
