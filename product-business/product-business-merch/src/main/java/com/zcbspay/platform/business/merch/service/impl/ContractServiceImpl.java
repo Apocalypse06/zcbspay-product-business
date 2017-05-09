@@ -1,6 +1,8 @@
 package com.zcbspay.platform.business.merch.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -68,9 +70,8 @@ public class ContractServiceImpl implements ContractBizService {
 
 	@Override
 	public ResultBean importBatchContract(BatchImportReqBean batchImportReqBean) {
-		boolean flag = true; // 合同导入是否成功：false-没成功，true-成功
-		StringBuffer exInfo = new StringBuffer();
 		Map<String, Object> result = new HashMap<String, Object>();
+		List<ContractBean> contractBeans = new ArrayList<>();
 		
 		for (BatchImportFileContent bifc : batchImportReqBean.getFileContents()) {
 			ContractBean contractBean = new ContractBean();
@@ -100,32 +101,26 @@ public class ContractServiceImpl implements ContractBizService {
 				contractBean.setFileAddress(bifc.getFileaddress());
 				contractBean.setCategoryPurpose(bifc.getCategorypurpose());
 				contractBean.setProprieTary(bifc.getProprietary());
+				
+				contractBeans.add(contractBean);
 			} catch (Exception e) {
 				logger.info("合同信息有误!");
 				return new ResultBean("BC005", "合同信息有误!");
 			}
-			
-			try {
-				 result= contractService.addContract(contractBean);
-			} catch (Exception e) {
-				e.printStackTrace();
-				logger.info("合同服务异常!");
-				return new ResultBean("BC004", "合同服务异常!");
-			}
-			
-			String ret = result.get("RET").toString();
-			if (!ret.equals("succ")) {
-				flag = false;
-				logger.info("合同编号为 " + bifc.getContractnum() + " 的" + result.get("INFO").toString());
-				exInfo.append("合同编号为" + bifc.getContractnum() + " 的" + result.get("INFO").toString() + ",");
-			}
 		}
 		
-		if (flag) {
-			return new ResultBean("操作成功!");
-			
-		}else {
-			return new ResultBean("BC006", exInfo.deleteCharAt(exInfo.length() - 1).toString());
+		try {
+			result = contractService.importBatch(contractBeans, batchImportReqBean.getBatchNo(), batchImportReqBean.getMerId());
+			String ret = result.get("RET").toString();
+			if (!ret.equals("succ")) {
+				logger.info(result.get("INFO").toString());
+				return new ResultBean("BC006", result.get("INFO").toString());
+			}
+			return new ResultBean("导入成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info("合同服务异常!");
+			return new ResultBean("BC004", "合同服务异常!");
 		}
 	}
 
