@@ -286,5 +286,6 @@
     <module>product-business-api-auth-test</module>
     <module>product-business-merch-simple</module>
     <module>product-business-merch-service</module>
+    <module>product-business-coop-simple</module>
 	</modules>
 </project>
