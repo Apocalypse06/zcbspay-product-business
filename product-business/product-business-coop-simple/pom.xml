@@ -14,9 +14,9 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>com.zcbspay.platform.business</groupId>
+			<groupId>com.paytong.platform.business</groupId>
 			<artifactId>product-business-coop</artifactId>
-			<version>${project.version}</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			    <groupId>com.alibaba</groupId>
