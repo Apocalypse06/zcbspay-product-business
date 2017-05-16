@@ -161,7 +161,7 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("查询批量代付订单服务异常");
-			return new ResultBean("BP0001", "订单查询异常!");
+			return new ResultBean("PC013", "订单服务异常!");
 		}
 	}
 
