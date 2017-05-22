@@ -37,7 +37,7 @@ public class RealtimePaymentImpl implements RealtimePayment {
 					.checkContract(realtimePaymentBean.getDebtorConsign(), realtimePaymentBean.getMerId(),
 							realtimePaymentBean.getDebtorName(), realtimePaymentBean.getDebtorAccount(),
 							realtimePaymentBean.getCreditorName(), realtimePaymentBean.getCreditorAccount(),
-							ContractTypeEnum.PAYMENT.getCode(), realtimePaymentBean.getTxnAmt())
+							ContractTypeEnum.REALTIMEPAYMENT.getCode(), realtimePaymentBean.getTxnAmt())
 					.split(",");
 			if (!rsp[0].trim().equals("CT00")) {
 				logger.info(rsp[1].trim());

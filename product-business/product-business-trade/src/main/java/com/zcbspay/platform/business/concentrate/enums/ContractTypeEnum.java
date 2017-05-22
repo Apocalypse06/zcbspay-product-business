@@ -7,10 +7,14 @@ package com.zcbspay.platform.business.concentrate.enums;
  * @author lianhai
  */
 public enum ContractTypeEnum {
-    /**代收协议**/
-    COLLECTION("CT00"),
-    /**代付协议**/
-    PAYMENT("CT01"),
+    /**批量代收协议**/
+    BATCHCOLLECTION("CT00"),
+    /**批量代付代付协议**/
+    BATCHPAYMENT("CT01"),
+    /**批量代收协议**/
+    REALTIMECOLLECTION("CT02"),
+    /**批量代付代付协议**/
+    REALTIMEPAYMENT("CT03"),
     /**代收付协议**/
     COLLECTIONORPAYMENT("CT99");
     private String code;

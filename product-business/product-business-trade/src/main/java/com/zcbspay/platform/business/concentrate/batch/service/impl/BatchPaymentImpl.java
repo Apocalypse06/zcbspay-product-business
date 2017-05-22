@@ -46,7 +46,7 @@ public class BatchPaymentImpl implements BatchPayment {
 			for (FileContentBean fcb : batchPaymentBean.getFileContent()) {
 				String rsp[] = contractDAO.checkContract(fcb.getDebtorConsign(), batchPaymentBean.getMerId(),
 						fcb.getDebtorName(), fcb.getDebtorAccount(), fcb.getCreditorName(), fcb.getCreditorAccount(),
-						ContractTypeEnum.PAYMENT.getCode(), fcb.getAmt()).split(",");
+						ContractTypeEnum.BATCHPAYMENT.getCode(), fcb.getAmt()).split(",");
 				if (!rsp[0].trim().equals("CT00")) {
 					flag = true;
 					logger.info("商户订单号为 " + fcb.getOrderId() + " 的" + rsp[1].trim());
