@@ -90,7 +90,7 @@ public class ContractServiceImpl implements ContractBizService {
 				contractBean.setDebTransLimit(Long.valueOf(bifc.getDebtortranslimit()));
 				contractBean.setCredName(bifc.getCreditorname());
 				contractBean.setCredAccNo(bifc.getCreditoraccountno());
-				contractBean.setCredBranchCode(bifc.getCreditoramountlimit());
+				contractBean.setCredBranchCode(bifc.getCreditorbranchcode());
 				contractBean.setCredAmoLimit(bifc.getCreditoramountlimit());
 				contractBean.setCredTranLimitType(bifc.getCreditortransamtlimittype());
 				contractBean.setCredAccuAmoLimit(bifc.getCreditoraccuamountlimit());
@@ -105,6 +105,7 @@ public class ContractServiceImpl implements ContractBizService {
 				contractBeans.add(contractBean);
 			} catch (Exception e) {
 				logger.info("合同信息有误!");
+				e.printStackTrace();
 				return new ResultBean("BC005", "合同信息有误!");
 			}
 		}

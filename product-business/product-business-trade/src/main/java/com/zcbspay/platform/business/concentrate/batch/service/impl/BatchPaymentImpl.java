@@ -36,14 +36,14 @@ public class BatchPaymentImpl implements BatchPayment {
 
 	@Override
 	public ResultBean pay(BatchPaymentBean batchPaymentBean) {
-		List<FileContentBean> fcbs = new ArrayList<>();
+		List<FileContentBean> fcbs = batchPaymentBean.getFileContent();
 		List<com.zcbspay.platform.business.order.bean.FileContentBean> orderFcbs = new ArrayList<>();
 		StringBuffer exInfo = new StringBuffer();
 		boolean flag = false; // 合同信息是否有异常：false-无，true-有
 		
 		// 合同信息校验
 		try {
-			for (FileContentBean fcb : batchPaymentBean.getFileContent()) {
+			for (FileContentBean fcb : fcbs) {
 				String rsp[] = contractDAO.checkContract(fcb.getDebtorConsign(), batchPaymentBean.getMerId(),
 						fcb.getDebtorName(), fcb.getDebtorAccount(), fcb.getCreditorName(), fcb.getCreditorAccount(),
 						ContractTypeEnum.BATCHPAYMENT.getCode(), fcb.getAmt()).split(",");
