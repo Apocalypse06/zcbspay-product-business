@@ -27,12 +27,17 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 	public ResultBean queryOrder(String merchNo, String orderId) {
 		OrderResultBean orderResultBean;
 		try {
-			orderResultBean = BeanCopyUtil.copyBean(OrderResultBean.class,
-					queryOrderService.queryOrder(merchNo, orderId));
+			com.zcbspay.platform.support.order.query.query.bean.OrderResultBean beanSource = queryOrderService
+					.queryOrder(merchNo, orderId);
+			if (beanSource == null) {
+				logger.info("订单不存在!");
+				return new ResultBean("PC004", "订单不存在!");
+			}
+			orderResultBean = BeanCopyUtil.copyBean(OrderResultBean.class, beanSource);
 		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
 			e.printStackTrace();
 			logger.info(e.getMessage());
-			return new ResultBean(e.getCode(),e.getMessage());
+			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("订单服务异常");
@@ -46,11 +51,17 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 		OrderResultBean orderResultBean;
 
 		try {
-			orderResultBean = BeanCopyUtil.copyBean(OrderResultBean.class, queryOrderService.queryOrderByTN(tn));
+			com.zcbspay.platform.support.order.query.query.bean.OrderResultBean beanSource = queryOrderService
+					.queryOrderByTN(tn);
+			if (beanSource == null) {
+				logger.info("订单不存在!");
+				return new ResultBean("PC004", "订单不存在!");
+			}
+			orderResultBean = BeanCopyUtil.copyBean(OrderResultBean.class, beanSource);
 		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
 			e.printStackTrace();
 			logger.info(e.getMessage());
-			return new ResultBean(e.getCode(),e.getMessage());
+			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("订单服务异常");
@@ -63,12 +74,17 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 	public ResultBean queryInsteadPayOrder(String merchNo, String orderId) {
 		OrderResultBean orderResultBean;
 		try {
-			orderResultBean = BeanCopyUtil.copyBean(OrderResultBean.class,
-					queryOrderService.queryInsteadPayOrder(merchNo, orderId));
+			com.zcbspay.platform.support.order.query.query.bean.OrderResultBean beanSource = queryOrderService
+					.queryInsteadPayOrder(merchNo, orderId);
+			if (beanSource == null) {
+				logger.info("订单不存在!");
+				return new ResultBean("PC004", "订单不存在!");
+			}
+			orderResultBean = BeanCopyUtil.copyBean(OrderResultBean.class, beanSource);
 		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
 			e.printStackTrace();
 			logger.info(e.getMessage());
-			return new ResultBean(e.getCode(),e.getMessage());
+			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("订单服务异常");
@@ -81,12 +97,17 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 	public ResultBean queryConcentrateCollectionOrder(String tn) {
 		OrderResultBean orderResultBean;
 		try {
-			orderResultBean = BeanCopyUtil.copyBean(OrderResultBean.class,
-					queryOrderService.queryConcentrateCollectionOrder(tn));
+			com.zcbspay.platform.support.order.query.query.bean.OrderResultBean beanSource = queryOrderService
+					.queryConcentrateCollectionOrder(tn);
+			if (beanSource == null) {
+				logger.info("订单不存在!");
+				return new ResultBean("PC004", "订单不存在!");
+			}
+			orderResultBean = BeanCopyUtil.copyBean(OrderResultBean.class, beanSource);
 		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
 			e.printStackTrace();
 			logger.info(e.getMessage());
-			return new ResultBean(e.getCode(),e.getMessage());
+			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("查询实时代收订单服务异常");
@@ -99,12 +120,17 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 	public ResultBean queryConcentratePaymentOrder(String tn) {
 		OrderResultBean orderResultBean;
 		try {
-			orderResultBean = BeanCopyUtil.copyBean(OrderResultBean.class,
-					queryOrderService.queryConcentratePaymentOrder(tn));
+			com.zcbspay.platform.support.order.query.query.bean.OrderResultBean beanSource = queryOrderService
+					.queryConcentratePaymentOrder(tn);
+			if (beanSource == null) {
+				logger.info("订单不存在!");
+				return new ResultBean("PC004", "订单不存在!");
+			}
+			orderResultBean = BeanCopyUtil.copyBean(OrderResultBean.class, beanSource);
 		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
 			e.printStackTrace();
 			logger.info(e.getMessage());
-			return new ResultBean(e.getCode(),e.getMessage());
+			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("查询实时代付订单服务异常");
@@ -121,6 +147,10 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 		try {
 			// 获取查询结果
 			sourceBean = queryOrderService.queryConcentrateCollectionBatch(merchNo, batchNo, txnDate);
+			if (sourceBean == null) {
+				logger.info("订单不存在!");
+				return new ResultBean("PC004", "订单不存在!");
+			}
 			// 复制属性值
 			batchResultBean = BeanCopyUtil.copyBean(BatchResultBean.class, sourceBean);
 
@@ -147,6 +177,10 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 		try {
 			// 获取查询结果
 			sourceBean = queryOrderService.queryConcentratePaymentBatch(merchNo, batchNo, txnDate);
+			if (sourceBean == null) {
+				logger.info("订单不存在!");
+				return new ResultBean("PC004", "订单不存在!");
+			}
 			// 复制属性值
 			batchResultBean = BeanCopyUtil.copyBean(BatchResultBean.class, sourceBean);
 
