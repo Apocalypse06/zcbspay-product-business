@@ -11,9 +11,9 @@ public enum ContractTypeEnum {
     BATCHCOLLECTION("CT00"),
     /**批量代付代付协议**/
     BATCHPAYMENT("CT01"),
-    /**批量代收协议**/
+    /**实时代收协议**/
     REALTIMECOLLECTION("CT02"),
-    /**批量代付代付协议**/
+    /**实时代付协议**/
     REALTIMEPAYMENT("CT03"),
     /**代收付协议**/
     COLLECTIONORPAYMENT("CT99");

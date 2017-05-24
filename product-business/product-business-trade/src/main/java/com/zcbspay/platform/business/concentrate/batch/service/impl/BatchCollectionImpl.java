@@ -47,7 +47,8 @@ public class BatchCollectionImpl implements BatchCollection {
 			for (FileContentBean fcb : fcbs) {
 				String rsp[] = contractDAO.checkContract(fcb.getDebtorConsign(), batchCollectionBean.getMerId(),
 						fcb.getDebtorName(), fcb.getDebtorAccount(), fcb.getCreditorName(), fcb.getCreditorAccount(),
-						ContractTypeEnum.BATCHCOLLECTION.getCode(), fcb.getAmt()).split(",");
+						ContractTypeEnum.BATCHCOLLECTION.getCode(), fcb.getAmt(), fcb.getDebtorBank(),
+						fcb.getCreditorBank()).split(",");
 				if (!rsp[0].trim().equals("CT00")) {
 					flag = true;
 					logger.info("商户订单号为 " + fcb.getOrderId() + " 的" + rsp[1].trim());

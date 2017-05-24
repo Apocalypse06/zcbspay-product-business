@@ -39,7 +39,8 @@ public class RealtimeCollectionImpl implements RealtimeCollection {
 					.checkContract(realtimeCollectionBean.getDebtorConsign(), realtimeCollectionBean.getMerId(),
 							realtimeCollectionBean.getDebtorName(), realtimeCollectionBean.getDebtorAccount(),
 							realtimeCollectionBean.getCreditorName(), realtimeCollectionBean.getCreditorAccount(),
-							ContractTypeEnum.REALTIMECOLLECTION.getCode(), realtimeCollectionBean.getTxnAmt())
+							ContractTypeEnum.REALTIMECOLLECTION.getCode(), realtimeCollectionBean.getTxnAmt(),
+							realtimeCollectionBean.getDebtorBank(), realtimeCollectionBean.getCreditorBank())
 					.split(",");
 			if (!rsp[0].trim().equals("CT00")) {
 				logger.info(rsp[1].trim());

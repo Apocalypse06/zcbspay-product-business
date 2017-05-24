@@ -40,13 +40,14 @@ public class BatchPaymentImpl implements BatchPayment {
 		List<com.zcbspay.platform.business.order.bean.FileContentBean> orderFcbs = new ArrayList<>();
 		StringBuffer exInfo = new StringBuffer();
 		boolean flag = false; // 合同信息是否有异常：false-无，true-有
-		
+
 		// 合同信息校验
 		try {
 			for (FileContentBean fcb : fcbs) {
 				String rsp[] = contractDAO.checkContract(fcb.getDebtorConsign(), batchPaymentBean.getMerId(),
 						fcb.getDebtorName(), fcb.getDebtorAccount(), fcb.getCreditorName(), fcb.getCreditorAccount(),
-						ContractTypeEnum.BATCHPAYMENT.getCode(), fcb.getAmt()).split(",");
+						ContractTypeEnum.BATCHPAYMENT.getCode(), fcb.getAmt(), fcb.getDebtorBank(),
+						fcb.getCreditorBank()).split(",");
 				if (!rsp[0].trim().equals("CT00")) {
 					flag = true;
 					logger.info("商户订单号为 " + fcb.getOrderId() + " 的" + rsp[1].trim());
@@ -90,7 +91,7 @@ public class BatchPaymentImpl implements BatchPayment {
 		} catch (ConcentrateTradeException e) {
 			e.printStackTrace();
 			logger.info(e.getMessage());
-			return new ResultBean(e.getCode(),e.getMessage());
+			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.info("批量代付异常！");

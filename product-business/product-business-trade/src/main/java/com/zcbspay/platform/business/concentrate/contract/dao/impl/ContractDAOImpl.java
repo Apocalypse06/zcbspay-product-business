@@ -24,10 +24,11 @@ public class ContractDAOImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 	}
 
 	public String checkContract(String contractnum, String merchno, String debtorname, String debtoraccountno,
-			String creditorname, String creditoraccountno, String contracttype, String amount) {
-		String sql = "SELECT fnc_getcontract(?,?,?,?,?,?,?,?) AS RSP FROM dual";
+			String creditorname, String creditoraccountno, String contracttype, String amount, String debtorbranchcode,
+			String creditorbranchcode) {
+		String sql = "SELECT fnc_getcontract(?,?,?,?,?,?,?,?,?,?) AS RSP FROM dual";
 		Object paramaters[] = { contractnum, merchno, debtorname, debtoraccountno, creditorname, creditoraccountno,
-				contracttype, amount };
+				contracttype, amount, debtorbranchcode, creditorbranchcode};
 		@SuppressWarnings("unchecked")
 		Map<String, Object> rsp = (Map<String, Object>) this.queryBySQL(sql, paramaters).get(0);
 		return rsp.get("RSP").toString();
