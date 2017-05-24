@@ -35,7 +35,7 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 			}
 			orderResultBean = BeanCopyUtil.copyBean(OrderResultBean.class, beanSource);
 		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 			logger.info(e.getMessage());
 			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
@@ -59,7 +59,7 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 			}
 			orderResultBean = BeanCopyUtil.copyBean(OrderResultBean.class, beanSource);
 		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 			logger.info(e.getMessage());
 			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
@@ -82,7 +82,7 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 			}
 			orderResultBean = BeanCopyUtil.copyBean(OrderResultBean.class, beanSource);
 		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 			logger.info(e.getMessage());
 			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
@@ -105,7 +105,7 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 			}
 			orderResultBean = BeanCopyUtil.copyBean(OrderResultBean.class, beanSource);
 		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 			logger.info(e.getMessage());
 			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
@@ -128,7 +128,7 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 			}
 			orderResultBean = BeanCopyUtil.copyBean(OrderResultBean.class, beanSource);
 		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 			logger.info(e.getMessage());
 			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
@@ -148,8 +148,8 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 			// 获取查询结果
 			sourceBean = queryOrderService.queryConcentrateCollectionBatch(merchNo, batchNo, txnDate);
 			if (sourceBean == null) {
-				logger.info("订单不存在!");
-				return new ResultBean("PC004", "订单不存在!");
+				logger.info("批次不存在!");
+				return new ResultBean("PC029", "批次不存在!");
 			}
 			// 复制属性值
 			batchResultBean = BeanCopyUtil.copyBean(BatchResultBean.class, sourceBean);
@@ -162,6 +162,10 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 			// 文件域赋值
 			batchResultBean.setFileContentList(fileContentList);
 			return new ResultBean(batchResultBean);
+		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
+			// e.printStackTrace();
+			logger.info(e.getMessage());
+			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("查询批量代收订单服务异常");
@@ -178,8 +182,8 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 			// 获取查询结果
 			sourceBean = queryOrderService.queryConcentratePaymentBatch(merchNo, batchNo, txnDate);
 			if (sourceBean == null) {
-				logger.info("订单不存在!");
-				return new ResultBean("PC004", "订单不存在!");
+				logger.info("批次不存在!");
+				return new ResultBean("PC029", "批次不存在!");
 			}
 			// 复制属性值
 			batchResultBean = BeanCopyUtil.copyBean(BatchResultBean.class, sourceBean);
@@ -192,6 +196,10 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 			// 文件域赋值
 			batchResultBean.setFileContentList(fileContentList);
 			return new ResultBean(batchResultBean);
+		} catch (com.zcbspay.platform.support.order.query.exception.QueryOrderException e) {
+			// e.printStackTrace();
+			logger.info(e.getMessage());
+			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("查询批量代付订单服务异常");
