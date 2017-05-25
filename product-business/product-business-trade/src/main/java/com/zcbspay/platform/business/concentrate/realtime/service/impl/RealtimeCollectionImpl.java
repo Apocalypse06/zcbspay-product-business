@@ -48,7 +48,7 @@ public class RealtimeCollectionImpl implements RealtimeCollection {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.info("合同校验异常！");
+			logger.error("合同校验异常！");
 			return new ResultBean("BC001", "合同信息校验失败！");
 		}
 
@@ -76,7 +76,7 @@ public class RealtimeCollectionImpl implements RealtimeCollection {
 			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.info("实时代收异常！");
+			logger.error("实时代收异常！");
 			return new ResultBean("BP003", "实时代收异常！");
 		}
 	}

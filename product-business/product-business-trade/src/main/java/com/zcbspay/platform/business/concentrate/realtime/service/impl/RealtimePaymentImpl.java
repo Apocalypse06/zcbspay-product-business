@@ -46,7 +46,7 @@ public class RealtimePaymentImpl implements RealtimePayment {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.info("合同校验异常！");
+			logger.error("合同校验异常！");
 			return new ResultBean("BC001", "合同信息校验失败！");
 		}
 
@@ -74,7 +74,7 @@ public class RealtimePaymentImpl implements RealtimePayment {
 			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.info("实时代付异常！");
+			logger.error("实时代付异常！");
 			return new ResultBean("BP004", "实时代付异常！");
 		}
 	}

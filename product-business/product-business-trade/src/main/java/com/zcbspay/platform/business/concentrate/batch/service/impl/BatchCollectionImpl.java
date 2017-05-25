@@ -39,8 +39,8 @@ public class BatchCollectionImpl implements BatchCollection {
 	public ResultBean pay(BatchCollectionBean batchCollectionBean) {
 		List<FileContentBean> fcbs = batchCollectionBean.getFileContent();
 		List<com.zcbspay.platform.business.order.bean.FileContentBean> orderFcbs = new ArrayList<>();
-		StringBuffer exInfo = new StringBuffer();
-		boolean flag = false; // 合同信息是否有异常：false-无，true-有
+		//StringBuffer exInfo = new StringBuffer();
+		//boolean flag = false; // 合同信息是否有异常：false-无，true-有
 
 		// 合同信息校验
 		try {
@@ -50,17 +50,18 @@ public class BatchCollectionImpl implements BatchCollection {
 						ContractTypeEnum.BATCHCOLLECTION.getCode(), fcb.getAmt(), fcb.getDebtorBank(),
 						fcb.getCreditorBank()).split(",");
 				if (!rsp[0].trim().equals("CT00")) {
-					flag = true;
+					//flag = true;
 					logger.info("商户订单号为 " + fcb.getOrderId() + " 的" + rsp[1].trim());
-					exInfo.append("商户订单号为" + fcb.getOrderId() + "的" + rsp[1].trim() + ",");
+					return new ResultBean(rsp[0].trim(), "商户订单号为" + fcb.getOrderId() + "的" + rsp[1].trim());
+					//exInfo.append("商户订单号为" + fcb.getOrderId() + "的" + rsp[1].trim() + ",");
 				}
 			}
-			if (flag) {
+			/*if (flag) {
 				return new ResultBean("BC002", exInfo.deleteCharAt(exInfo.length() - 1).toString());
-			}
+			}*/
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.info("合同校验异常！");
+			logger.error("合同校验异常！");
 			return new ResultBean("BC001", "合同信息校验失败！");
 		}
 
@@ -96,7 +97,7 @@ public class BatchCollectionImpl implements BatchCollection {
 			return new ResultBean(e.getCode(), e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.info("批量代收异常！");
+			logger.error("批量代收异常！");
 			return new ResultBean("BP001", "批量代收异常！");
 		}
 	}
